@@ -47,7 +47,7 @@ body{font-family:'Sarabun',sans-serif;background:var(--navy);color:var(--text);m
 .bg-fx::before{width:600px;height:600px;top:-100px;left:-100px;background:radial-gradient(circle,rgba(37,99,235,.15),transparent 70%);}
 .bg-fx::after{width:500px;height:500px;bottom:-80px;right:-80px;background:radial-gradient(circle,rgba(245,158,11,.1),transparent 70%);animation-delay:-4s;}
 .bg-dot{position:fixed;inset:0;pointer-events:none;z-index:0;background-image:radial-gradient(rgba(255,255,255,.04) 1px,transparent 1px);background-size:28px 28px;will-change:transform;transform:translateZ(0);}
-@keyframes pulse{0%{transform:scale(1) translate(0,0);}100%{transform:scale(1.15) translate(20px,20px);}}
+@keyframes pulse{0%{transform:scale(1) translate(0,0);}100%{transform:scale(1.06) translate(10px,10px);}}
 
 /* Counter Animation */
 @keyframes countUp{from{opacity:0.5;}to{opacity:1;}}
@@ -62,6 +62,9 @@ body{font-family:'Sarabun',sans-serif;background:var(--navy);color:var(--text);m
 
 
 .wrap{position:relative;z-index:1;max-width:1440px;margin:0 auto;padding:0 28px 80px;isolation:isolate;}
+@media(max-width:768px){
+  .bg-fx::before,.bg-fx::after{animation-duration:16s;} /* ช้าลงบน mobile */
+}
 
 /* ── Header ── */
 header{padding:32px 0 26px;border-bottom:1px solid var(--border);margin-bottom:32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;position:relative;}
@@ -74,15 +77,15 @@ h1 span{color:var(--gold2);text-shadow:0 0 20px rgba(251,191,36,.4);}
 .sub{font-size:12px;color:var(--text2);margin-top:2px;font-weight:400;}
 #dateDisplay{display:none;}
 .imp-area{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
-.btn-imp{background:linear-gradient(135deg,var(--accent),#1d4ed8);color:#fff;border:none;padding:11px 22px;border-radius:12px;font-family:'Sarabun',sans-serif;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px;box-shadow:0 4px 16px rgba(37,99,235,.45);transition:all .25s;white-space:nowrap;letter-spacing:.02em;}
+.btn-imp{background:linear-gradient(135deg,var(--accent),#1d4ed8);color:#fff;border:none;padding:11px 22px;border-radius:12px;font-family:'Sarabun',sans-serif;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px;box-shadow:0 4px 16px rgba(37,99,235,.45);transition:background-color .25s,color .25s,border-color .25s,opacity .25s,transform .25s;white-space:nowrap;letter-spacing:.02em;}
 .btn-imp:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(37,99,235,.6);}
 .btn-imp:active{transform:translateY(0);}
-.btn-save{background:linear-gradient(135deg,#059669,#10b981);color:#fff;border:none;padding:11px 22px;border-radius:12px;font-family:'Sarabun',sans-serif;font-size:14px;font-weight:700;cursor:pointer;display:none;align-items:center;gap:8px;box-shadow:0 4px 16px rgba(16,185,129,.4);transition:all .25s;white-space:nowrap;letter-spacing:.02em;}
+.btn-save{background:linear-gradient(135deg,#059669,#10b981);color:#fff;border:none;padding:11px 22px;border-radius:12px;font-family:'Sarabun',sans-serif;font-size:14px;font-weight:700;cursor:pointer;display:none;align-items:center;gap:8px;box-shadow:0 4px 16px rgba(16,185,129,.4);transition:background-color .25s,color .25s,border-color .25s,opacity .25s,transform .25s;white-space:nowrap;letter-spacing:.02em;}
 .btn-save:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(16,185,129,.55);}
 .btn-save:active{transform:translateY(0);}
 #fileInput{display:none;}
 .fstatus{font-size:12px;color:var(--text2);display:flex;align-items:center;gap:7px;}
-.dot{width:8px;height:8px;border-radius:50%;background:var(--text2);flex-shrink:0;transition:all .4s;}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--text2);flex-shrink:0;transition:background-color .4s,box-shadow .4s;}
 .dot.on{background:var(--green);box-shadow:0 0 8px var(--green);}
 
 /* ── Stat cards ── */
@@ -90,7 +93,7 @@ h1 span{color:var(--gold2);text-shadow:0 0 20px rgba(251,191,36,.4);}
 @media(max-width:900px){.top-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:480px){.top-grid{grid-template-columns:1fr}}
 .sc{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:22px 20px;position:relative;overflow:hidden;transition:transform .25s,box-shadow .25s;cursor:default;}
-.sc:hover{transform:translate3d(0,-3px,0);box-shadow:0 12px 32px rgba(0,0,0,.3);}
+.sc:hover{transform:translate3d(0,-3px,0);box-shadow:0 12px 32px rgba(0,0,0,.3);}@media(hover:none){.sc:hover{transform:none;box-shadow:none;}}
 .sc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;border-radius:2px 2px 0 0;}
 .sc::after{content:'';position:absolute;bottom:0;right:0;width:80px;height:80px;border-radius:50%;opacity:.06;transform:translate(20px,20px);}
 .sc.b::before{background:linear-gradient(90deg,var(--accent),var(--cyan));}
@@ -187,7 +190,7 @@ tr:last-child td{border-bottom:none;}
 .mg{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;}
 @media(max-width:560px){.mg{grid-template-columns:repeat(4,1fr)}}
 .mc{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:10px;padding:9px 6px;text-align:center;transition:transform .15s,border-color .15s;}
-.mc:hover{transform:scale(1.04);}
+.mc:hover{transform:scale(1.04);}@media(hover:none){.mc:hover{transform:none;}}
 .mc.hi{border-color:rgba(239,68,68,.4);background:rgba(239,68,68,.08);}
 .mc.lo{border-color:rgba(16,185,129,.4);background:rgba(16,185,129,.08);}
 .mc.emp{opacity:.25;}
@@ -203,7 +206,7 @@ tr:last-child td{border-bottom:none;}
 .et{font-size:16px;font-weight:700;color:var(--text);margin-bottom:8px;}
 .ed{font-size:13px;line-height:1.8;font-weight:400;}
 .tip{background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.2);border-radius:14px;padding:14px 18px;font-size:13px;color:var(--text2);margin-top:20px;display:inline-flex;align-items:flex-start;gap:10px;text-align:left;line-height:1.7;max-width:500px;font-weight:400;}
-.lov{display:none;position:fixed;inset:0;background:rgba(6,14,30,.88);backdrop-filter:blur(6px);z-index:300;align-items:center;justify-content:center;flex-direction:column;gap:16px;}
+.lov{display:none;position:fixed;inset:0;background:rgba(6,14,30,.88);backdrop-filter:blur(3px);z-index:300;align-items:center;justify-content:center;flex-direction:column;gap:16px;}
 .lov.show{display:flex;}
 .sp{width:42px;height:42px;border:3px solid rgba(37,99,235,.2);border-top-color:var(--accent);border-radius:50%;animation:spin .75s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -211,7 +214,7 @@ tr:last-child td{border-bottom:none;}
 #mc{display:none;}
 
 /* ── Tab Navigation ── */
-.tab-btn{background:transparent;border:none;color:var(--text2);padding:12px 26px;border-radius:12px;font-family:'Sarabun',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap;letter-spacing:.01em;}
+.tab-btn{background:transparent;border:none;color:var(--text2);padding:12px 26px;border-radius:12px;font-family:'Sarabun',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:background-color .2s,color .2s,border-color .2s,opacity .2s,transform .2s;white-space:nowrap;letter-spacing:.01em;}
 .tab-btn:hover{color:var(--text);background:rgba(255,255,255,.04);}
 .tab-btn.active{background:rgba(37,99,235,.2);color:#fff;box-shadow:0 0 0 1px rgba(37,99,235,.35);}
 /* ── Overview / Transfer table ── */
@@ -223,7 +226,7 @@ tr:last-child td{border-bottom:none;}
 .fnote{text-align:center;color:var(--text2);font-size:12px;margin-top:12px;padding-bottom:4px;font-weight:400;}
 
 /* ── Modal ── */
-.modal-bg{display:none;position:fixed;inset:0;background:rgba(3,8,18,.82);backdrop-filter:blur(8px);z-index:200;align-items:center;justify-content:center;padding:20px;}
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(3,8,18,.82);backdrop-filter:blur(4px);z-index:200;align-items:center;justify-content:center;padding:20px;}
 .modal-bg.show{display:flex;}
 .modal{background:var(--navy2);border:1px solid rgba(255,255,255,.1);border-radius:24px;width:100%;max-width:820px;max-height:88vh;overflow-y:auto;-webkit-overflow-scrolling:touch;box-shadow:0 32px 80px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.04);animation:modalIn .28s cubic-bezier(.34,1.56,.64,1);}
 @keyframes modalIn{from{transform:scale(.93) translateY(16px);opacity:0;}to{transform:scale(1) translateY(0);opacity:1;}}
@@ -233,7 +236,7 @@ tr:last-child td{border-bottom:none;}
 .modal-ico{width:42px;height:42px;border-radius:12px;background:rgba(37,99,235,.18);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
 .modal-title{font-size:16px;font-weight:800;color:#fff;letter-spacing:.01em;}
 .modal-sub{font-size:12px;color:var(--text2);margin-top:3px;font-weight:400;}
-.modal-close{background:rgba(255,255,255,.07);border:none;color:var(--text2);width:34px;height:34px;border-radius:10px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s;line-height:1;}
+.modal-close{background:rgba(255,255,255,.07);border:none;color:var(--text2);width:34px;height:34px;border-radius:10px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background-color .15s,color .15s,border-color .15s,opacity .15s,transform .15s;line-height:1;}
 .modal-close:hover{background:rgba(239,68,68,.2);color:var(--c-bad);}
 .modal-body{padding:22px 26px 26px;}
 
@@ -613,7 +616,7 @@ header{
   border-radius:12px;font-family:'Sarabun',sans-serif;
   font-size:14px;font-weight:700;cursor:pointer;
   box-shadow:0 4px 16px rgba(37,99,235,.4);
-  transition:all .25s;
+  transition:background-color .25s,color .25s,border-color .25s,opacity .25s,transform .25s;
 }
 .empty-state-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(37,99,235,.55);}
 
@@ -639,8 +642,8 @@ header{
   position:fixed;
   bottom:0;left:0;right:0;
   background:rgba(10,18,35,.97);
-  backdrop-filter:blur(20px);
-  -webkit-backdrop-filter:blur(20px);
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
   border-top:1px solid rgba(255,255,255,.1);
   z-index:200;
   padding:0;
@@ -668,7 +671,7 @@ header{
   font-weight:600;
   letter-spacing:.01em;
   padding:8px 4px;
-  transition:all .18s;
+  transition:color .18s,opacity .18s;
   position:relative;
   -webkit-tap-highlight-color:transparent;
 }
@@ -783,7 +786,7 @@ header{
   color:#fff;border:none;padding:11px 22px;border-radius:12px;
   font-family:'Sarabun',sans-serif;font-size:14px;font-weight:700;
   cursor:pointer;display:none;align-items:center;gap:8px;
-  box-shadow:0 4px 16px rgba(168,85,247,.45);transition:all .25s;
+  box-shadow:0 4px 16px rgba(168,85,247,.45);transition:background-color .25s,color .25s,border-color .25s,opacity .25s,transform .25s;
   white-space:nowrap;letter-spacing:.02em;
 }
 #btn-compare:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(168,85,247,.65);}
@@ -794,14 +797,14 @@ header{
   color:#fff;border:none;padding:11px 22px;border-radius:12px;
   font-family:'Sarabun',sans-serif;font-size:14px;font-weight:700;
   cursor:pointer;display:none;align-items:center;gap:8px;
-  box-shadow:0 4px 16px rgba(14,165,233,.4);transition:all .25s;
+  box-shadow:0 4px 16px rgba(14,165,233,.4);transition:background-color .25s,color .25s,border-color .25s,opacity .25s,transform .25s;
   white-space:nowrap;letter-spacing:.02em;
 }
 #btn-simulate:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(14,165,233,.6);}
 #btn-simulate:active{transform:translateY(0);}
 
 /* ── Simulate Drawer v4 — mobile-first ── */
-#sim-bg{display:none;position:fixed;inset:0;background:rgba(3,8,18,.78);backdrop-filter:blur(6px);z-index:400;}
+#sim-bg{display:none;position:fixed;inset:0;background:rgba(3,8,18,.78);backdrop-filter:blur(3px);z-index:400;}
 #sim-bg.show{display:block;}
 #sim-drawer{
   position:fixed;bottom:0;left:0;right:0;height:92vh;
@@ -893,7 +896,7 @@ header{
   background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);
   color:#fff;padding:10px 4px;border-radius:10px;
   font-family:'Sarabun',sans-serif;font-size:13px;font-weight:700;cursor:pointer;
-  transition:all .15s;text-align:center;
+  transition:background-color .15s,color .15s,border-color .15s,opacity .15s,transform .15s;text-align:center;
 }
 .sim-quick-btn:active{transform:scale(.96);}
 .sim-quick-btn.active{background:rgba(14,165,233,.25);color:#7dd3fc;border-color:rgba(14,165,233,.5);}
@@ -925,7 +928,7 @@ header{
 /* footer */
 #sim-footer{padding:10px 16px calc(10px + env(safe-area-inset-bottom));border-top:1px solid rgba(255,255,255,.07);flex-shrink:0;background:#0b1626;}
 #sim-footer-btns{display:flex;gap:8px;}
-.sim-footer-btn{flex:1;padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.07);color:var(--text2);font-family:'Sarabun',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .15s;}
+.sim-footer-btn{flex:1;padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.07);color:var(--text2);font-family:'Sarabun',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:background-color .15s,color .15s,border-color .15s,opacity .15s,transform .15s;}
 .sim-footer-btn:active{transform:scale(.98);}
 
 /* cat badge */
@@ -990,7 +993,7 @@ header{
 .sim-footer-btn{
   flex:1;padding:10px;border-radius:11px;border:1px solid rgba(255,255,255,.1);
   background:rgba(255,255,255,.07);color:var(--text2);
-  font-family:'Sarabun',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;
+  font-family:'Sarabun',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:background-color .15s,color .15s,border-color .15s,opacity .15s,transform .15s;
 }
 .sim-footer-btn:hover{background:rgba(255,255,255,.10);}
 .sim-footer-btn.primary{
@@ -1004,7 +1007,7 @@ header{
   color:#fff;border:none;padding:11px 22px;border-radius:12px;
   font-family:'Sarabun',sans-serif;font-size:14px;font-weight:700;
   cursor:pointer;display:none;align-items:center;gap:8px;
-  box-shadow:0 4px 16px rgba(14,165,233,.4);transition:all .25s;
+  box-shadow:0 4px 16px rgba(14,165,233,.4);transition:background-color .25s,color .25s,border-color .25s,opacity .25s,transform .25s;
   white-space:nowrap;letter-spacing:.02em;
 }
 #btn-print:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(14,165,233,.6);}
@@ -1054,12 +1057,12 @@ header{
   font-size:10px;font-weight:800;cursor:pointer;
   margin-left:5px;flex-shrink:0;
   border:1px solid rgba(255,255,255,.18);
-  transition:all .15s;
+  transition:background-color .15s,color .15s,border-color .15s,opacity .15s,transform .15s;
 }
 .tt-icon:hover{background:rgba(255,255,255,.25);color:#fff;transform:scale(1.1);}
 #infoModalBg{
   display:none;position:fixed;inset:0;
-  background:rgba(3,8,18,.75);backdrop-filter:blur(6px);
+  background:rgba(3,8,18,.75);backdrop-filter:blur(3px);
   z-index:600;align-items:center;justify-content:center;padding:20px;
 }
 #infoModalBg.show{display:flex;}
@@ -1078,7 +1081,7 @@ header{
   background:rgba(255,255,255,.07);border:none;color:var(--text2);
   width:28px;height:28px;border-radius:8px;font-size:14px;
   cursor:pointer;display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;transition:all .15s;
+  flex-shrink:0;transition:background-color .15s,color .15s,border-color .15s,opacity .15s,transform .15s;
 }
 #infoModalClose:hover{background:rgba(239,68,68,.2);color:var(--c-bad);}
 #infoModalBody{padding:16px 20px 20px;font-size:13px;color:var(--text2);line-height:1.7;}
@@ -1106,9 +1109,9 @@ body.is-shared-file .overall-budget-section {
 }
 </style>
 
-<script>window.__IS_SHARED__=true;(function(){var d={"ค่าคุ้มครองพยาน":{"name":"ค่าคุ้มครองพยาน","budget":100,"used":0,"monthly":[0,0,0,0,0,0,0,0,0,0,0,0],"status":"รอใช้"},"ค่าตอบแทนพยาน":{"name":"ค่าตอบแทนพยาน","budget":4400,"used":0,"monthly":[0,0,0,0,0,0,0,0,0,0,0,0],"status":"รอใช้"},"ค่าตอบแทนนักจิต":{"name":"ค่าตอบแทนนักจิต","budget":2300,"used":0,"monthly":[0,0,0,0,0,0,0,0,0,0,0,0],"status":"รอใช้"},"ค่าชันสูตรผลิกศพ":{"name":"ค่าชันสูตรผลิกศพ","budget":14000,"used":0,"monthly":[0,0,0,0,0,0,0,0,0,0,0,0],"status":"รอใช้"},"ค่าส่งหมายเรียก":{"name":"ค่าส่งหมายเรียก","budget":300,"used":0,"monthly":[0,0,0,0,0,0,0,0,0,0,0,0],"status":"รอใช้"},"ชมส.":{"name":"ชมส.","budget":30450,"used":0,"monthly":[0,0,0,0,0,0,0,0,0,0,0,0],"status":"รอใช้"},"ตำรวจบ้าน":{"name":"ตำรวจบ้าน","budget":8000,"used":8000,"monthly":[0,0,0,8000,0,0,0,0,0,0,0,0],"status":"ใช้หมด"},"เบี้ยประชุม ก.ตร.":{"name":"เบี้ยประชุม ก.ตร.","budget":6000,"used":0,"monthly":[0,0,0,0,0,0,0,0,0,0,0,0],"status":"รอใช้"},"โอที":{"name":"โอที","budget":744000,"used":506080,"monthly":[98740,98940,119960,99980,88460,0,0,0,0,0,0,0],"status":"ปกติ"},"ค่าเบี้ยเลี้ยง":{"name":"ค่าเบี้ยเลี้ยง","budget":51600,"used":0,"monthly":[0,0,0,0,0,0,0,0,0,0,0,0],"status":"รอใช้"},"ค่าซ่อมแซมรถ":{"name":"ค่าซ่อมแซมรถ","budget":14300,"used":0,"monthly":[0,0,0,0,0,0,0,0,0,0,0,0],"status":"รอใช้"},"ค่าทำความสะอาด":{"name":"ค่าทำความสะอาด","budget":31700,"used":0,"monthly":[0,0,0,0,0,0,0,0,0,0,0,0],"status":"รอใช้"},"ค่าวัสดุสำนักงาน":{"name":"ค่าวัสดุสำนักงาน","budget":5500,"used":12055.7,"monthly":[0,0,0,7087.7,0,4968,0,0,0,0,0,0],"status":"เกินงบ"},"ค่าวัสดุจราจร":{"name":"ค่าวัสดุจราจร","budget":4000,"used":0,"monthly":[0,0,0,0,0,0,0,0,0,0,0,0],"status":"รอใช้"},"ค่าอาหารผู้ต้องหา":{"name":"ค่าอาหารผู้ต้องหา","budget":9700,"used":4350,"monthly":[1150,1425,1775,0,0,0,0,0,0,0,0,0],"status":"ปกติ"},"ค่าน้ำมัน+รถเช่า":{"name":"ค่าน้ำมัน+รถเช่า","budget":962000,"used":750000,"monthly":[150000,150000,150000,150000,150000,0,0,0,0,0,0,0],"status":"ปกติ","subItems":[{"name":"⛽ ค่าน้ำมันเชื้อเพลิง","budget":902000,"monthly":[150000,150000,150000,150000,150000,0,0,0,0,0,0,0],"total":750000},{"name":"🚐 รถตู้ (เช่า)","budget":36000,"monthly":[0,0,0,0,0,0,0,0,0,0,0,0],"total":0},{"name":"🚙 รถอเนกประสงค์ (เช่า)","budget":24000,"monthly":[0,0,0,0,0,0,0,0,0,0,0,0],"total":0}]},"ค่าสาธารณูปโภค":{"name":"ค่าสาธารณูปโภค","budget":41200,"used":139232.75,"monthly":[37202.69,22781.62,23957.8,24174.469999999998,31116.17,0,0,0,0,0,0,0],"status":"เกินงบ","subItems":[{"name":"💡 ค่าไฟฟ้า","monthly":[35185.39,20874.32,21729.5,21981.17,30445.17,0,0,0,0,0,0,0],"total":130215.54999999999},{"name":"📞 ค่าโทรศัพท์","monthly":[1487.3,1487.3,1487.3,1487.3,0,0,0,0,0,0,0,0],"total":5949.2},{"name":"📬 ค่าไปรษณีย์","monthly":[530,420,741,706,671,0,0,0,0,0,0,0],"total":3068}],"_noCol20":true}};var t={"overview":[["งบประมาณ สภ.บางบาล · ปีงบประมาณ 2569",null,null,null,null,null,null,null,null,null],["📌 คอลัมน์ \"งบปี 2569\" = งบเดิม + งบเสริม รวมกันอัตโนมัติ  |  หมวด 4: กรอกเพิ่มได้ที่ชีท \"📋 งบอื่นๆ\"",null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],["ลำดับ","รายการงบประมาณ","งบปี 2569 (รวมเสริม)","งบเดิม (บาท)","งบเสริม (บาท)","ใช้ไปแล้ว (บาท)","คงเหลือ (บาท)","% ใช้","สถานะ","% visual"],["1. หมวดงานสอบสวน",null,null,null,null,null,null,null,null,null],[1,"ค่าคุ้มครองพยาน",100,100,0,0,100,"0%","⏳ รอใช้",0],[2,"ค่าตอบแทนพยาน",4400,4400,0,0,4400,"0%","⏳ รอใช้",0],[3,"ค่าตอบแทนนักจิต",2300,2300,0,0,2300,"0%","⏳ รอใช้",0],[4,"ค่าชันสูตรผลิกศพ",14000,14000,0,0,14000,"0%","⏳ รอใช้",0],[5,"ค่าส่งหมายเรียก",300,300,0,0,300,"0%","⏳ รอใช้",0],["▸ รวมหมวดงานสอบสวน",null,21100,21100,0,0,21100,"0%",null,null],[null,null,null,null,null,null,null,null,null,null],["2. ค่าใช้จ่ายทั่วไป",null,null,null,null,null,null,null,null,null],[1,"โอที",744000,744000,0,506080,237920,"68%","✔ ปกติ",0.6802150537634408],[2,"ค่าเบี้ยเลี้ยง",51600,51600,0,0,51600,"0%","⏳ รอใช้",0],[3,"ค่าน้ำมัน+รถเช่า",962000,962000,0,750000,212000,"78%","✔ ปกติ",0.7796257796257796],[4,"ค่าซ่อมแซมรถ",14300,14300,0,0,14300,"0%","⏳ รอใช้",0],[5,"ค่าทำความสะอาด",31700,31700,0,0,31700,"0%","⏳ รอใช้",0],[6,"ค่าวัสดุสำนักงาน",5500,5500,0,12055.7,-6555.700000000001,"219%","⚠ เกิน",2.1919454545454546],[7,"ค่าวัสดุจราจร",4000,4000,0,0,4000,"0%","⏳ รอใช้",0],[8,"ค่าอาหารผู้ต้องหา",9700,9700,0,4350,5350,"45%","✔ ปกติ",0.4484536082474227],[9,"ค่าสาธารณูปโภค",41200,41200,0,139232.75,-98032.75,"338%","⚠ เกิน",3.3794356796116505],["▸ รวมค่าใช้จ่ายทั่วไป",null,1864000,1864000,0,1411718.45,452281.55000000005,"76%",null,null],[null,null,null,null,null,null,null,null,null,null],["3. งบอื่นๆ (ชมส. / ตำรวจบ้าน / เบี้ยประชุม ก.ตร.)",null,null,null,null,null,null,null,null,null],[1,"ชมส.",30450,30450,0,0,30450,"0%","⏳ รอใช้",0],[2,"ตำรวจบ้าน",8000,8000,0,8000,0,"100%","✅ หมด",1],[3,"เบี้ยประชุม ก.ตร.",6000,4000,2000,0,6000,"0%","⏳ รอใช้",0],["▸ รวมงบอื่นๆ (กลุ่ม 3)",null,44450,42450,2000,8000,36450,"18%",null,null],[null,null,null,null,null,null,null,null,null,null],["4. งบอื่นๆ เพิ่มเติม  ✏️  กรอกได้ในชีท \"📋 งบอื่นๆ\"",null,null,null,null,null,null,null,null,null],["",0,"","","","","","","",0],["",0,"","","","","","","",0],["",0,"","","","","","","",0],["",0,"","","","","","","",0],["",0,"","","","","","","",0],["",0,"","","","","","","",0],["",0,"","","","","","","",0],["",0,"","","","","","","",0],["",0,"","","","","","","",0],["",0,"","","","","","","",0],["▸ รวมงบอื่นๆ เพิ่มเติม (กลุ่ม 4)",null,0,0,0,0,0,"-",null,null],[null,null,null,null,null,null,null,null,null,null],["🏁  รวมงบประมาณทั้งสิ้น",null,1929550,1927550,2000,1419718.45,509831.55000000005,"73.6%","✔ อยู่ในงบ",null],[null,null,null,null,null,null,null,null,null,null],["📦  สรุปผลการโยกงบประมาณ — ปีงบประมาณ 2569",null,null,null,null,null,null,null,null,null],[null,"รายการ","งบเดิม (บาท)","โยกเข้า (+)","โยกออก (−)","งบหลังโยก","เปลี่ยน ±","โยกออกไปยัง →","รับโยกจาก ←",null],[null,"ค่าคุ้มครองพยาน",100,"-","-",100,"-","—","—",null],[null,"ค่าตอบแทนพยาน",4400,"-","-",4400,"-","—","—",null],[null,"ค่าตอบแทนนักจิต",2300,"-","-",2300,"-","—","—",null],[null,"ค่าชันสูตรผลิกศพ",14000,"-","-",14000,"-","—","—",null],[null,"ค่าส่งหมายเรียก",300,"-","-",300,"-","—","—",null],[null,"โอที",744000,"-","-",744000,"-","—","—",null],[null,"ค่าเบี้ยเลี้ยง",51600,"-","-",51600,"-","—","—",null],[null,"ค่าน้ำมัน+รถเช่า",962000,"-","-",962000,"-","—","—",null],[null,"ค่าซ่อมแซมรถ",14300,"-","-",14300,"-","—","—",null],[null,"ค่าทำความสะอาด",31700,"-","-",31700,"-","—","—",null],[null,"ค่าวัสดุสำนักงาน",5500,"-","-",5500,"-","—","—",null],[null,"ค่าวัสดุจราจร",4000,"-","-",4000,"-","—","—",null],[null,"ค่าอาหารผู้ต้องหา",9700,"-","-",9700,"-","—","—",null],[null,"ค่าสาธารณูปโภค",41200,"-","-",41200,"-","—","—",null],[null,"ชมส.",30450,"-","-",30450,"-","—","—",null],[null,"ตำรวจบ้าน",8000,"-","-",8000,"-","—","—",null],[null,"เบี้ยประชุม ก.ตร.",6000,"-","-",6000,"-","—","—",null],[null,"🏁  รวมทั้งสิ้น (หลังโยก)",1929550,"-","-",1929550,"-",null,null,null],[null,"💡 หมายเหตุ: การโยกงบต้องสมดุล — โยกเข้ารวม = โยกออกรวม ทุกครั้ง",null,null,null,null,null,null,null,null]],"transfer":{"entries":[],"sumRows":[]},"extrabudget":{"entries":[{"no":1,"date":"-","name":"ศลต.69","received":28000,"spent":28000,"remain":0,"note":"ส่งเบิก 11 มี.ค.69"},{"no":2,"date":"-","name":"เคลื่อนที่เร็ว","received":6800,"spent":6800,"remain":0,"note":"ส่งเบิก 11 มี.ค.69"}]}};var s="15 มี.ค. 69 · 09:22";function go(){if(typeof render==="function"){window._FROZEN_TABS=t;render(d,"Snapshot · บันทึกเมื่อ "+s);return true;}return false;}if(!go())window.addEventListener("DOMContentLoaded",go);})();</script></head>
-<body>
-<div style="position:fixed;top:0;left:0;right:0;z-index:400;background:linear-gradient(90deg,rgba(16,185,129,.95),rgba(6,182,212,.9));padding:5px 16px;display:flex;align-items:center;justify-content:center;gap:8px;font-family:Sarabun,sans-serif;font-size:11px;font-weight:700;color:#fff;box-shadow:0 2px 8px rgba(0,0,0,.3);">📸 Snapshot &nbsp;·&nbsp; <span style="font-weight:400;opacity:.9;">15 มี.ค. 69 · 09:22</span></div><div style="height:30px;"></div><div class="bg-fx"></div>
+<script>window.__IS_SHARED__=true;(function(){var d={"ค่าคุ้มครองพยาน":{"name":"ค่าคุ้มครองพยาน","budget":100,"used":0,"monthly":[0,0,0,0,0,0,0,0,0,0,0,0],"status":"รอใช้"},"ค่าตอบแทนพยาน":{"name":"ค่าตอบแทนพยาน","budget":4400,"used":0,"monthly":[0,0,0,0,0,0,0,0,0,0,0,0],"status":"รอใช้"},"ค่าตอบแทนนักจิต":{"name":"ค่าตอบแทนนักจิต","budget":2300,"used":0,"monthly":[0,0,0,0,0,0,0,0,0,0,0,0],"status":"รอใช้"},"ค่าชันสูตรผลิกศพ":{"name":"ค่าชันสูตรผลิกศพ","budget":14000,"used":0,"monthly":[0,0,0,0,0,0,0,0,0,0,0,0],"status":"รอใช้"},"ค่าส่งหมายเรียก":{"name":"ค่าส่งหมายเรียก","budget":300,"used":0,"monthly":[0,0,0,0,0,0,0,0,0,0,0,0],"status":"รอใช้"},"ชมส.":{"name":"ชมส.","budget":30450,"used":0,"monthly":[0,0,0,0,0,0,0,0,0,0,0,0],"status":"รอใช้"},"ตำรวจบ้าน":{"name":"ตำรวจบ้าน","budget":8000,"used":8000,"monthly":[0,0,0,8000,0,0,0,0,0,0,0,0],"status":"ใช้หมด"},"เบี้ยประชุม ก.ตร.":{"name":"เบี้ยประชุม ก.ตร.","budget":6000,"used":0,"monthly":[0,0,0,0,0,0,0,0,0,0,0,0],"status":"รอใช้"},"โอที":{"name":"โอที","budget":744000,"used":506080,"monthly":[98740,98940,119960,99980,88460,0,0,0,0,0,0,0],"status":"ปกติ"},"ค่าเบี้ยเลี้ยง":{"name":"ค่าเบี้ยเลี้ยง","budget":51600,"used":0,"monthly":[0,0,0,0,0,0,0,0,0,0,0,0],"status":"รอใช้"},"ค่าซ่อมแซมรถ":{"name":"ค่าซ่อมแซมรถ","budget":14300,"used":0,"monthly":[0,0,0,0,0,0,0,0,0,0,0,0],"status":"รอใช้"},"ค่าทำความสะอาด":{"name":"ค่าทำความสะอาด","budget":31700,"used":0,"monthly":[0,0,0,0,0,0,0,0,0,0,0,0],"status":"รอใช้"},"ค่าวัสดุสำนักงาน":{"name":"ค่าวัสดุสำนักงาน","budget":5500,"used":12055.7,"monthly":[0,0,0,7087.7,0,4968,0,0,0,0,0,0],"status":"เกินงบ"},"ค่าวัสดุจราจร":{"name":"ค่าวัสดุจราจร","budget":4000,"used":0,"monthly":[0,0,0,0,0,0,0,0,0,0,0,0],"status":"รอใช้"},"ค่าอาหารผู้ต้องหา":{"name":"ค่าอาหารผู้ต้องหา","budget":9700,"used":4350,"monthly":[1150,1425,1775,0,0,0,0,0,0,0,0,0],"status":"ปกติ"},"ค่าน้ำมัน+รถเช่า":{"name":"ค่าน้ำมัน+รถเช่า","budget":962000,"used":750000,"monthly":[150000,150000,150000,150000,150000,0,0,0,0,0,0,0],"status":"ปกติ","subItems":[{"name":"⛽ ค่าน้ำมันเชื้อเพลิง","budget":902000,"monthly":[150000,150000,150000,150000,150000,0,0,0,0,0,0,0],"total":750000},{"name":"🚐 รถตู้ (เช่า)","budget":36000,"monthly":[0,0,0,0,0,0,0,0,0,0,0,0],"total":0},{"name":"🚙 รถอเนกประสงค์ (เช่า)","budget":24000,"monthly":[0,0,0,0,0,0,0,0,0,0,0,0],"total":0}]},"ค่าสาธารณูปโภค":{"name":"ค่าสาธารณูปโภค","budget":41200,"used":139232.75,"monthly":[37202.69,22781.62,23957.8,24174.469999999998,31116.17,0,0,0,0,0,0,0],"status":"เกินงบ","subItems":[{"name":"💡 ค่าไฟฟ้า","monthly":[35185.39,20874.32,21729.5,21981.17,30445.17,0,0,0,0,0,0,0],"total":130215.54999999999},{"name":"📞 ค่าโทรศัพท์","monthly":[1487.3,1487.3,1487.3,1487.3,0,0,0,0,0,0,0,0],"total":5949.2},{"name":"📬 ค่าไปรษณีย์","monthly":[530,420,741,706,671,0,0,0,0,0,0,0],"total":3068}],"_noCol20":true}};var t={"overview":[["งบประมาณ สภ.บางบาล · ปีงบประมาณ 2569",null,null,null,null,null,null,null,null,null],["📌 คอลัมน์ \"งบปี 2569\" = งบเดิม + งบเสริม รวมกันอัตโนมัติ  |  หมวด 4: กรอกเพิ่มได้ที่ชีท \"📋 งบอื่นๆ\"",null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],["ลำดับ","รายการงบประมาณ","งบปี 2569 (รวมเสริม)","งบเดิม (บาท)","งบเสริม (บาท)","ใช้ไปแล้ว (บาท)","คงเหลือ (บาท)","% ใช้","สถานะ","% visual"],["1. หมวดงานสอบสวน",null,null,null,null,null,null,null,null,null],[1,"ค่าคุ้มครองพยาน",100,100,0,0,100,"0%","⏳ รอใช้",0],[2,"ค่าตอบแทนพยาน",4400,4400,0,0,4400,"0%","⏳ รอใช้",0],[3,"ค่าตอบแทนนักจิต",2300,2300,0,0,2300,"0%","⏳ รอใช้",0],[4,"ค่าชันสูตรผลิกศพ",14000,14000,0,0,14000,"0%","⏳ รอใช้",0],[5,"ค่าส่งหมายเรียก",300,300,0,0,300,"0%","⏳ รอใช้",0],["▸ รวมหมวดงานสอบสวน",null,21100,21100,0,0,21100,"0%",null,null],[null,null,null,null,null,null,null,null,null,null],["2. ค่าใช้จ่ายทั่วไป",null,null,null,null,null,null,null,null,null],[1,"โอที",744000,744000,0,506080,237920,"68%","✔ ปกติ",0.6802150537634408],[2,"ค่าเบี้ยเลี้ยง",51600,51600,0,0,51600,"0%","⏳ รอใช้",0],[3,"ค่าน้ำมัน+รถเช่า",962000,962000,0,750000,212000,"78%","✔ ปกติ",0.7796257796257796],[4,"ค่าซ่อมแซมรถ",14300,14300,0,0,14300,"0%","⏳ รอใช้",0],[5,"ค่าทำความสะอาด",31700,31700,0,0,31700,"0%","⏳ รอใช้",0],[6,"ค่าวัสดุสำนักงาน",5500,5500,0,12055.7,-6555.700000000001,"219%","⚠ เกิน",2.1919454545454546],[7,"ค่าวัสดุจราจร",4000,4000,0,0,4000,"0%","⏳ รอใช้",0],[8,"ค่าอาหารผู้ต้องหา",9700,9700,0,4350,5350,"45%","✔ ปกติ",0.4484536082474227],[9,"ค่าสาธารณูปโภค",41200,41200,0,139232.75,-98032.75,"338%","⚠ เกิน",3.3794356796116505],["▸ รวมค่าใช้จ่ายทั่วไป",null,1864000,1864000,0,1411718.45,452281.55000000005,"76%",null,null],[null,null,null,null,null,null,null,null,null,null],["3. งบอื่นๆ (ชมส. / ตำรวจบ้าน / เบี้ยประชุม ก.ตร.)",null,null,null,null,null,null,null,null,null],[1,"ชมส.",30450,30450,0,0,30450,"0%","⏳ รอใช้",0],[2,"ตำรวจบ้าน",8000,8000,0,8000,0,"100%","✅ หมด",1],[3,"เบี้ยประชุม ก.ตร.",6000,4000,2000,0,6000,"0%","⏳ รอใช้",0],["▸ รวมงบอื่นๆ (กลุ่ม 3)",null,44450,42450,2000,8000,36450,"18%",null,null],[null,null,null,null,null,null,null,null,null,null],["4. งบอื่นๆ เพิ่มเติม  ✏️  กรอกได้ในชีท \"📋 งบอื่นๆ\"",null,null,null,null,null,null,null,null,null],["",0,"","","","","","","",0],["",0,"","","","","","","",0],["",0,"","","","","","","",0],["",0,"","","","","","","",0],["",0,"","","","","","","",0],["",0,"","","","","","","",0],["",0,"","","","","","","",0],["",0,"","","","","","","",0],["",0,"","","","","","","",0],["",0,"","","","","","","",0],["▸ รวมงบอื่นๆ เพิ่มเติม (กลุ่ม 4)",null,0,0,0,0,0,"-",null,null],[null,null,null,null,null,null,null,null,null,null],["🏁  รวมงบประมาณทั้งสิ้น",null,1929550,1927550,2000,1419718.45,509831.55000000005,"73.6%","✔ อยู่ในงบ",null],[null,null,null,null,null,null,null,null,null,null],["📦  สรุปผลการโยกงบประมาณ — ปีงบประมาณ 2569",null,null,null,null,null,null,null,null,null],[null,"รายการ","งบเดิม (บาท)","โยกเข้า (+)","โยกออก (−)","งบหลังโยก","เปลี่ยน ±","โยกออกไปยัง →","รับโยกจาก ←",null],[null,"ค่าคุ้มครองพยาน",100,"-","-",100,"-","—","—",null],[null,"ค่าตอบแทนพยาน",4400,"-","-",4400,"-","—","—",null],[null,"ค่าตอบแทนนักจิต",2300,"-","-",2300,"-","—","—",null],[null,"ค่าชันสูตรผลิกศพ",14000,"-","-",14000,"-","—","—",null],[null,"ค่าส่งหมายเรียก",300,"-","-",300,"-","—","—",null],[null,"โอที",744000,"-","-",744000,"-","—","—",null],[null,"ค่าเบี้ยเลี้ยง",51600,"-","-",51600,"-","—","—",null],[null,"ค่าน้ำมัน+รถเช่า",962000,"-","-",962000,"-","—","—",null],[null,"ค่าซ่อมแซมรถ",14300,"-","-",14300,"-","—","—",null],[null,"ค่าทำความสะอาด",31700,"-","-",31700,"-","—","—",null],[null,"ค่าวัสดุสำนักงาน",5500,"-","-",5500,"-","—","—",null],[null,"ค่าวัสดุจราจร",4000,"-","-",4000,"-","—","—",null],[null,"ค่าอาหารผู้ต้องหา",9700,"-","-",9700,"-","—","—",null],[null,"ค่าสาธารณูปโภค",41200,"-","-",41200,"-","—","—",null],[null,"ชมส.",30450,"-","-",30450,"-","—","—",null],[null,"ตำรวจบ้าน",8000,"-","-",8000,"-","—","—",null],[null,"เบี้ยประชุม ก.ตร.",6000,"-","-",6000,"-","—","—",null],[null,"🏁  รวมทั้งสิ้น (หลังโยก)",1929550,"-","-",1929550,"-",null,null,null],[null,"💡 หมายเหตุ: การโยกงบต้องสมดุล — โยกเข้ารวม = โยกออกรวม ทุกครั้ง",null,null,null,null,null,null,null,null]],"transfer":{"entries":[],"sumRows":[]},"extrabudget":{"entries":[{"no":1,"date":"-","name":"ศลต.69","received":28000,"spent":28000,"remain":0,"note":"ส่งเบิก 11 มี.ค.69"},{"no":2,"date":"-","name":"เคลื่อนที่เร็ว","received":6800,"spent":6800,"remain":0,"note":"ส่งเบิก 11 มี.ค.69"}]}};var s="15 มี.ค. 69 · 09:52";function go(){if(typeof render==="function"){window._FROZEN_TABS=t;render(d,"Snapshot · บันทึกเมื่อ "+s);return true;}return false;}if(!go())window.addEventListener("DOMContentLoaded",go);})();</script></head>
+<body style="">
+<div style="position:fixed;top:0;left:0;right:0;z-index:400;background:linear-gradient(90deg,rgba(16,185,129,.95),rgba(6,182,212,.9));padding:5px 16px;display:flex;align-items:center;justify-content:center;gap:8px;font-family:Sarabun,sans-serif;font-size:11px;font-weight:700;color:#fff;box-shadow:0 2px 8px rgba(0,0,0,.3);">📸 Snapshot &nbsp;·&nbsp; <span style="font-weight:400;opacity:.9;">15 มี.ค. 69 · 09:52</span></div><div style="height:30px;"></div><div class="bg-fx"></div>
 <div class="bg-dot"></div>
 
 <div class="lov" id="lov"><div class="sp"></div><div style="color:var(--text2);font-size:14px;font-weight:500;">กำลังประมวลผลข้อมูล…</div></div>
@@ -3326,7 +3329,7 @@ function setMnav(tab){
           <div style="font-size:12px;color:var(--text2);margin-top:2px;" id="overModalSub"></div>
         </div>
       </div>
-      <button onclick="closeOverModal()" style="background:rgba(255,255,255,.07);border:none;color:var(--text2);width:34px;height:34px;border-radius:10px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;line-height:1;">✕</button>
+      <button onclick="closeOverModal()" style="background:rgba(255,255,255,.07);border:none;color:var(--text2);width:34px;height:34px;border-radius:10px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background-color .15s,color .15s;line-height:1;">✕</button>
     </div>
     <div style="padding:22px 26px 26px;" id="overModalBody"></div>
   </div>
@@ -3345,7 +3348,7 @@ function openOverModal(){
     const pct=it.budget>0?parseFloat((it.used/it.budget*100).toFixed(2)):0;
     const barW=Math.min(100,it.budget>0?(it.used/it.budget*100):100);
     html+=`
-    <div onclick="closeOverModal();setTimeout(()=>openModal('${it.name}'),150)" style="cursor:pointer;background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.2);border-radius:16px;padding:18px 20px;transition:all .15s;" onmouseenter="this.style.background='rgba(239,68,68,.12)';this.style.borderColor='rgba(239,68,68,.4)'" onmouseleave="this.style.background='rgba(239,68,68,.07)';this.style.borderColor='rgba(239,68,68,.2)'">
+    <div onclick="closeOverModal();setTimeout(()=>openModal('${it.name}'),150)" style="cursor:pointer;background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.2);border-radius:16px;padding:18px 20px;transition:background-color .15s,border-color .15s;" onmouseenter="this.style.background='rgba(239,68,68,.12)';this.style.borderColor='rgba(239,68,68,.4)'" onmouseleave="this.style.background='rgba(239,68,68,.07)';this.style.borderColor='rgba(239,68,68,.2)'">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;gap:12px;">
         <div style="font-size:14px;font-weight:700;color:#fff;">${it.name}</div>
         <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
@@ -3689,7 +3692,7 @@ window.addEventListener('DOMContentLoaded', function() {
 /* ── Drawer ── */
 #compare-drawer-bg{
   display:none;position:fixed;inset:0;background:rgba(3,8,18,.7);
-  backdrop-filter:blur(6px);z-index:300;
+  backdrop-filter:blur(3px);z-index:300;
 }
 #compare-drawer-bg.show{display:block;}
 #compare-drawer{
@@ -3747,7 +3750,7 @@ window.addEventListener('DOMContentLoaded', function() {
   border:2px solid rgba(255,255,255,.2);
   background:transparent;flex-shrink:0;
   display:flex;align-items:center;justify-content:center;
-  transition:all .15s;
+  transition:background-color .15s,color .15s,border-color .15s,opacity .15s,transform .15s;
 }
 .cdr-item.selected .cdr-box{
   background:var(--accent);border-color:var(--accent);
@@ -3772,7 +3775,7 @@ window.addEventListener('DOMContentLoaded', function() {
   background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;
   border:none;padding:10px 22px;border-radius:12px;
   font-family:'Sarabun',sans-serif;font-size:14px;font-weight:700;
-  cursor:pointer;transition:all .15s;
+  cursor:pointer;transition:background-color .15s,color .15s,border-color .15s,opacity .15s,transform .15s;
 }
 #cdr-btn-summary:disabled{opacity:.4;cursor:default;}
 #cdr-btn-summary:not(:disabled):hover{transform:translateY(-1px);}
@@ -3787,7 +3790,7 @@ window.addEventListener('DOMContentLoaded', function() {
 /* ── Result Modal ── */
 #cdrResultBg{
   display:none;position:fixed;inset:0;
-  background:rgba(3,8,18,.85);backdrop-filter:blur(8px);
+  background:rgba(3,8,18,.85);backdrop-filter:blur(4px);
   z-index:500;align-items:flex-end;justify-content:center;padding:0;
 }
 #cdrResultBg.show{display:flex;}
@@ -3904,7 +3907,7 @@ function buildDrawerList(query) {
       const pct = it.budget > 0 ? parseFloat((it.used/it.budget*100).toFixed(2)) : 0;
       const iov = it.used > it.budget && it.budget > 0;
       const row = document.createElement('div');
-      row.style.cssText = 'display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:13px;cursor:pointer;transition:all .15s;margin-bottom:3px;border:1.5px solid transparent;';
+      row.style.cssText = 'display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:13px;cursor:pointer;transition:background-color .15s,border-color .15s;margin-bottom:3px;border:1.5px solid transparent;';
       if (_cdrSel.has(n)) {
         row.style.background = 'rgba(124,58,237,.13)';
         row.style.borderColor = 'rgba(168,85,247,.35)';
@@ -4344,12 +4347,12 @@ document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeInfo
 </script>
 
 <!-- Simulate Drawer -->
-<div id="sim-bg" onclick="closeSimDrawer()"></div>
-<div id="sim-drawer">
+<div id="sim-bg" onclick="closeSimDrawer()" class=""></div>
+<div id="sim-drawer" class="">
   <div id="sim-hdr">
     <div style="display:flex;align-items:center;gap:10px;flex:1;min-width:0;">
       <h3>🔀 จำลองโยกงบ</h3>
-      <div id="sim-cat-badge" style="background:rgba(37,99,235,.18);border:1px solid rgba(37,99,235,.35);color:#93c5fd;"></div>
+      <div id="sim-cat-badge" style="background: rgba(37, 99, 235, 0.18); border: 1px solid rgba(37, 99, 235, 0.35); color: rgb(147, 197, 253); display: none;"></div>
     </div>
     <button id="sim-hdr-close" onclick="closeSimDrawer()">✕</button>
   </div>
@@ -4362,18 +4365,18 @@ document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeInfo
           <div class="sim-col-lbl">📤 ต้นทาง</div>
           <div class="sim-chip-row" id="sim-from-chips"></div>
           <input class="sim-search" id="sim-from-search" placeholder="🔍 ค้นหา..." autocomplete="off" oninput="simRenderFromList(this.value)">
-          <div class="sim-suggest" id="sim-from-list"></div>
+          <div class="sim-suggest" id="sim-from-list"><div class="sim-item"><div style="display:flex;justify-content:space-between;align-items:center;gap:6px;"><span style="font-size:13px;font-weight:600;color:#f0f4ff;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">โอที</span><span style="font-size:12px;color:#34d399;font-weight:700;white-space:nowrap;">เหลือ 237,920.00</span></div><div style="height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;margin:4px 0;"><div style="height:100%;width:68%;background:#3b82f6;border-radius:2px;"></div></div><div style="font-size:10px;color:var(--text2);">งบ 744,000.00 · ใช้ไป 68%</div></div><div class="sim-item"><div style="display:flex;justify-content:space-between;align-items:center;gap:6px;"><span style="font-size:13px;font-weight:600;color:#f0f4ff;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">ค่าน้ำมัน+รถเช่า</span><span style="font-size:12px;color:#34d399;font-weight:700;white-space:nowrap;">เหลือ 212,000.00</span></div><div style="height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;margin:4px 0;"><div style="height:100%;width:78%;background:#3b82f6;border-radius:2px;"></div></div><div style="font-size:10px;color:var(--text2);">งบ 962,000.00 · ใช้ไป 78%</div></div><div class="sim-item"><div style="display:flex;justify-content:space-between;align-items:center;gap:6px;"><span style="font-size:13px;font-weight:600;color:#f0f4ff;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">ค่าเบี้ยเลี้ยง</span><span style="font-size:12px;color:#34d399;font-weight:700;white-space:nowrap;">เหลือ 51,600.00</span></div><div style="height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;margin:4px 0;"><div style="height:100%;width:0%;background:#3b82f6;border-radius:2px;"></div></div><div style="font-size:10px;color:var(--text2);">งบ 51,600.00 · ใช้ไป 0%</div></div><div class="sim-item"><div style="display:flex;justify-content:space-between;align-items:center;gap:6px;"><span style="font-size:13px;font-weight:600;color:#f0f4ff;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">ค่าทำความสะอาด</span><span style="font-size:12px;color:#34d399;font-weight:700;white-space:nowrap;">เหลือ 31,700.00</span></div><div style="height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;margin:4px 0;"><div style="height:100%;width:0%;background:#3b82f6;border-radius:2px;"></div></div><div style="font-size:10px;color:var(--text2);">งบ 31,700.00 · ใช้ไป 0%</div></div><div class="sim-item"><div style="display:flex;justify-content:space-between;align-items:center;gap:6px;"><span style="font-size:13px;font-weight:600;color:#f0f4ff;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">ค่าซ่อมแซมรถ</span><span style="font-size:12px;color:#34d399;font-weight:700;white-space:nowrap;">เหลือ 14,300.00</span></div><div style="height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;margin:4px 0;"><div style="height:100%;width:0%;background:#3b82f6;border-radius:2px;"></div></div><div style="font-size:10px;color:var(--text2);">งบ 14,300.00 · ใช้ไป 0%</div></div><div class="sim-item"><div style="display:flex;justify-content:space-between;align-items:center;gap:6px;"><span style="font-size:13px;font-weight:600;color:#f0f4ff;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">ค่าชันสูตรผลิกศพ</span><span style="font-size:12px;color:#34d399;font-weight:700;white-space:nowrap;">เหลือ 14,000.00</span></div><div style="height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;margin:4px 0;"><div style="height:100%;width:0%;background:#3b82f6;border-radius:2px;"></div></div><div style="font-size:10px;color:var(--text2);">งบ 14,000.00 · ใช้ไป 0%</div></div><div class="sim-item"><div style="display:flex;justify-content:space-between;align-items:center;gap:6px;"><span style="font-size:13px;font-weight:600;color:#f0f4ff;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">ค่าอาหารผู้ต้องหา</span><span style="font-size:12px;color:#34d399;font-weight:700;white-space:nowrap;">เหลือ 5,350.00</span></div><div style="height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;margin:4px 0;"><div style="height:100%;width:44.8%;background:#3b82f6;border-radius:2px;"></div></div><div style="font-size:10px;color:var(--text2);">งบ 9,700.00 · ใช้ไป 44.8%</div></div><div class="sim-item"><div style="display:flex;justify-content:space-between;align-items:center;gap:6px;"><span style="font-size:13px;font-weight:600;color:#f0f4ff;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">ค่าตอบแทนพยาน</span><span style="font-size:12px;color:#34d399;font-weight:700;white-space:nowrap;">เหลือ 4,400.00</span></div><div style="height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;margin:4px 0;"><div style="height:100%;width:0%;background:#3b82f6;border-radius:2px;"></div></div><div style="font-size:10px;color:var(--text2);">งบ 4,400.00 · ใช้ไป 0%</div></div><div class="sim-item"><div style="display:flex;justify-content:space-between;align-items:center;gap:6px;"><span style="font-size:13px;font-weight:600;color:#f0f4ff;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">ค่าวัสดุจราจร</span><span style="font-size:12px;color:#34d399;font-weight:700;white-space:nowrap;">เหลือ 4,000.00</span></div><div style="height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;margin:4px 0;"><div style="height:100%;width:0%;background:#3b82f6;border-radius:2px;"></div></div><div style="font-size:10px;color:var(--text2);">งบ 4,000.00 · ใช้ไป 0%</div></div><div class="sim-item"><div style="display:flex;justify-content:space-between;align-items:center;gap:6px;"><span style="font-size:13px;font-weight:600;color:#f0f4ff;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">ค่าตอบแทนนักจิต</span><span style="font-size:12px;color:#34d399;font-weight:700;white-space:nowrap;">เหลือ 2,300.00</span></div><div style="height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;margin:4px 0;"><div style="height:100%;width:0%;background:#3b82f6;border-radius:2px;"></div></div><div style="font-size:10px;color:var(--text2);">งบ 2,300.00 · ใช้ไป 0%</div></div><div class="sim-item"><div style="display:flex;justify-content:space-between;align-items:center;gap:6px;"><span style="font-size:13px;font-weight:600;color:#f0f4ff;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">ค่าส่งหมายเรียก</span><span style="font-size:12px;color:#34d399;font-weight:700;white-space:nowrap;">เหลือ 300.00</span></div><div style="height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;margin:4px 0;"><div style="height:100%;width:0%;background:#3b82f6;border-radius:2px;"></div></div><div style="font-size:10px;color:var(--text2);">งบ 300.00 · ใช้ไป 0%</div></div><div class="sim-item"><div style="display:flex;justify-content:space-between;align-items:center;gap:6px;"><span style="font-size:13px;font-weight:600;color:#f0f4ff;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">ค่าคุ้มครองพยาน</span><span style="font-size:12px;color:#34d399;font-weight:700;white-space:nowrap;">เหลือ 100.00</span></div><div style="height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;margin:4px 0;"><div style="height:100%;width:0%;background:#3b82f6;border-radius:2px;"></div></div><div style="font-size:10px;color:var(--text2);">งบ 100.00 · ใช้ไป 0%</div></div><div class="sim-item"><div style="display:flex;justify-content:space-between;align-items:center;gap:6px;"><span style="font-size:13px;font-weight:600;color:#f0f4ff;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">ค่าวัสดุสำนักงาน</span><span style="font-size:12px;color:#f87171;font-weight:700;white-space:nowrap;">เกิน 6,555.70</span></div><div style="height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;margin:4px 0;"><div style="height:100%;width:100%;background:#ef4444;border-radius:2px;"></div></div><div style="font-size:10px;color:var(--text2);">งบ 5,500.00 · ใช้ไป 100%</div></div><div class="sim-item"><div style="display:flex;justify-content:space-between;align-items:center;gap:6px;"><span style="font-size:13px;font-weight:600;color:#f0f4ff;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">ค่าสาธารณูปโภค</span><span style="font-size:12px;color:#f87171;font-weight:700;white-space:nowrap;">เกิน 98,032.75</span></div><div style="height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;margin:4px 0;"><div style="height:100%;width:100%;background:#ef4444;border-radius:2px;"></div></div><div style="font-size:10px;color:var(--text2);">งบ 41,200.00 · ใช้ไป 100%</div></div></div>
         </div>
         <div class="sim-pick-col">
           <div class="sim-col-lbl">📥 ปลายทาง</div>
           <div class="sim-chip-row" id="sim-to-chips"></div>
           <input class="sim-search" id="sim-to-search" placeholder="🔍 ค้นหา..." autocomplete="off" oninput="simRenderToList(this.value)">
-          <div class="sim-suggest" id="sim-to-list"></div>
+          <div class="sim-suggest" id="sim-to-list"><div class="sim-item"><div style="display:flex;justify-content:space-between;align-items:center;gap:6px;"><span style="font-size:13px;font-weight:600;color:#f0f4ff;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">ค่าสาธารณูปโภค</span><span style="font-size:12px;color:#f87171;font-weight:700;white-space:nowrap;">เกิน 98,032.75</span></div><div style="height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;margin:4px 0;"><div style="height:100%;width:100%;background:#ef4444;border-radius:2px;"></div></div><div style="font-size:10px;color:var(--text2);">งบ 41,200.00 · ใช้ไป 100%</div></div><div class="sim-item"><div style="display:flex;justify-content:space-between;align-items:center;gap:6px;"><span style="font-size:13px;font-weight:600;color:#f0f4ff;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">ค่าวัสดุสำนักงาน</span><span style="font-size:12px;color:#f87171;font-weight:700;white-space:nowrap;">เกิน 6,555.70</span></div><div style="height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;margin:4px 0;"><div style="height:100%;width:100%;background:#ef4444;border-radius:2px;"></div></div><div style="font-size:10px;color:var(--text2);">งบ 5,500.00 · ใช้ไป 100%</div></div><div class="sim-item"><div style="display:flex;justify-content:space-between;align-items:center;gap:6px;"><span style="font-size:13px;font-weight:600;color:#f0f4ff;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">ค่าคุ้มครองพยาน</span><span style="font-size:12px;color:#34d399;font-weight:700;white-space:nowrap;">เหลือ 100.00</span></div><div style="height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;margin:4px 0;"><div style="height:100%;width:0%;background:#3b82f6;border-radius:2px;"></div></div><div style="font-size:10px;color:var(--text2);">งบ 100.00 · ใช้ไป 0%</div></div><div class="sim-item"><div style="display:flex;justify-content:space-between;align-items:center;gap:6px;"><span style="font-size:13px;font-weight:600;color:#f0f4ff;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">ค่าส่งหมายเรียก</span><span style="font-size:12px;color:#34d399;font-weight:700;white-space:nowrap;">เหลือ 300.00</span></div><div style="height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;margin:4px 0;"><div style="height:100%;width:0%;background:#3b82f6;border-radius:2px;"></div></div><div style="font-size:10px;color:var(--text2);">งบ 300.00 · ใช้ไป 0%</div></div><div class="sim-item"><div style="display:flex;justify-content:space-between;align-items:center;gap:6px;"><span style="font-size:13px;font-weight:600;color:#f0f4ff;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">ค่าตอบแทนนักจิต</span><span style="font-size:12px;color:#34d399;font-weight:700;white-space:nowrap;">เหลือ 2,300.00</span></div><div style="height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;margin:4px 0;"><div style="height:100%;width:0%;background:#3b82f6;border-radius:2px;"></div></div><div style="font-size:10px;color:var(--text2);">งบ 2,300.00 · ใช้ไป 0%</div></div><div class="sim-item"><div style="display:flex;justify-content:space-between;align-items:center;gap:6px;"><span style="font-size:13px;font-weight:600;color:#f0f4ff;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">ค่าวัสดุจราจร</span><span style="font-size:12px;color:#34d399;font-weight:700;white-space:nowrap;">เหลือ 4,000.00</span></div><div style="height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;margin:4px 0;"><div style="height:100%;width:0%;background:#3b82f6;border-radius:2px;"></div></div><div style="font-size:10px;color:var(--text2);">งบ 4,000.00 · ใช้ไป 0%</div></div><div class="sim-item"><div style="display:flex;justify-content:space-between;align-items:center;gap:6px;"><span style="font-size:13px;font-weight:600;color:#f0f4ff;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">ค่าตอบแทนพยาน</span><span style="font-size:12px;color:#34d399;font-weight:700;white-space:nowrap;">เหลือ 4,400.00</span></div><div style="height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;margin:4px 0;"><div style="height:100%;width:0%;background:#3b82f6;border-radius:2px;"></div></div><div style="font-size:10px;color:var(--text2);">งบ 4,400.00 · ใช้ไป 0%</div></div><div class="sim-item"><div style="display:flex;justify-content:space-between;align-items:center;gap:6px;"><span style="font-size:13px;font-weight:600;color:#f0f4ff;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">ค่าอาหารผู้ต้องหา</span><span style="font-size:12px;color:#34d399;font-weight:700;white-space:nowrap;">เหลือ 5,350.00</span></div><div style="height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;margin:4px 0;"><div style="height:100%;width:44.8%;background:#3b82f6;border-radius:2px;"></div></div><div style="font-size:10px;color:var(--text2);">งบ 9,700.00 · ใช้ไป 44.8%</div></div><div class="sim-item"><div style="display:flex;justify-content:space-between;align-items:center;gap:6px;"><span style="font-size:13px;font-weight:600;color:#f0f4ff;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">ค่าชันสูตรผลิกศพ</span><span style="font-size:12px;color:#34d399;font-weight:700;white-space:nowrap;">เหลือ 14,000.00</span></div><div style="height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;margin:4px 0;"><div style="height:100%;width:0%;background:#3b82f6;border-radius:2px;"></div></div><div style="font-size:10px;color:var(--text2);">งบ 14,000.00 · ใช้ไป 0%</div></div><div class="sim-item"><div style="display:flex;justify-content:space-between;align-items:center;gap:6px;"><span style="font-size:13px;font-weight:600;color:#f0f4ff;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">ค่าซ่อมแซมรถ</span><span style="font-size:12px;color:#34d399;font-weight:700;white-space:nowrap;">เหลือ 14,300.00</span></div><div style="height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;margin:4px 0;"><div style="height:100%;width:0%;background:#3b82f6;border-radius:2px;"></div></div><div style="font-size:10px;color:var(--text2);">งบ 14,300.00 · ใช้ไป 0%</div></div><div class="sim-item"><div style="display:flex;justify-content:space-between;align-items:center;gap:6px;"><span style="font-size:13px;font-weight:600;color:#f0f4ff;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">ค่าทำความสะอาด</span><span style="font-size:12px;color:#34d399;font-weight:700;white-space:nowrap;">เหลือ 31,700.00</span></div><div style="height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;margin:4px 0;"><div style="height:100%;width:0%;background:#3b82f6;border-radius:2px;"></div></div><div style="font-size:10px;color:var(--text2);">งบ 31,700.00 · ใช้ไป 0%</div></div><div class="sim-item"><div style="display:flex;justify-content:space-between;align-items:center;gap:6px;"><span style="font-size:13px;font-weight:600;color:#f0f4ff;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">ค่าเบี้ยเลี้ยง</span><span style="font-size:12px;color:#34d399;font-weight:700;white-space:nowrap;">เหลือ 51,600.00</span></div><div style="height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;margin:4px 0;"><div style="height:100%;width:0%;background:#3b82f6;border-radius:2px;"></div></div><div style="font-size:10px;color:var(--text2);">งบ 51,600.00 · ใช้ไป 0%</div></div><div class="sim-item"><div style="display:flex;justify-content:space-between;align-items:center;gap:6px;"><span style="font-size:13px;font-weight:600;color:#f0f4ff;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">ค่าน้ำมัน+รถเช่า</span><span style="font-size:12px;color:#34d399;font-weight:700;white-space:nowrap;">เหลือ 212,000.00</span></div><div style="height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;margin:4px 0;"><div style="height:100%;width:78%;background:#3b82f6;border-radius:2px;"></div></div><div style="font-size:10px;color:var(--text2);">งบ 962,000.00 · ใช้ไป 78%</div></div><div class="sim-item"><div style="display:flex;justify-content:space-between;align-items:center;gap:6px;"><span style="font-size:13px;font-weight:600;color:#f0f4ff;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">โอที</span><span style="font-size:12px;color:#34d399;font-weight:700;white-space:nowrap;">เหลือ 237,920.00</span></div><div style="height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;margin:4px 0;"><div style="height:100%;width:68%;background:#3b82f6;border-radius:2px;"></div></div><div style="font-size:10px;color:var(--text2);">งบ 744,000.00 · ใช้ไป 68%</div></div></div>
         </div>
       </div>
 
       <!-- ── ใส่จำนวน ── -->
-      <div id="sim-amt-section">
+      <div id="sim-amt-section" style="display: none;">
         <div class="sim-amt-card">
           <div class="sim-amt-card-lbl" id="sim-amt-label">💰 จำนวนที่จะโยก</div>
           <div class="sim-typein-wrap">
@@ -4387,7 +4390,7 @@ document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeInfo
       </div>
 
       <!-- ── ผลจำลอง ── -->
-      <div id="sim-result-panel">
+      <div id="sim-result-panel" style="display: none;">
         <div style="font-size:12px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px;">📊 ผลจำลอง</div>
         <div id="sim-result-inner"></div>
       </div>
@@ -4995,6 +4998,8 @@ function simRow2(l,v,c){
 </script>
 
 <script>
+
+
 // ── Back gesture handler — ป้องกัน swipe back ออกจากแดชบอร์ด ──────────
 (function(){
   // push state เริ่มต้นเพื่อให้มี history entry
