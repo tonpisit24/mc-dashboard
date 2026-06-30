@@ -1672,7 +1672,6 @@ function mkStatus(budget,used){
 }
 
 const LIVE_XLSX_URL='https://docs.google.com/spreadsheets/d/e/2PACX-1vT8uYcom0uew5F-2xyKMzqSWKqAqGMIC8ilGp1w6T0WEuDzi5_J6cK8Wgg8o6erm8y5YmJB2zOILzq1/pub?output=xlsx';
-const LIVE_REFRESH_MS=60000;
 let _liveTimer=null;
 let _liveEnabled=true;
 
@@ -1701,7 +1700,6 @@ function startLiveWorkbook(){
   if(!_liveEnabled||window.__IS_SHARED__||!LIVE_XLSX_URL)return;
   loadLiveWorkbook();
   if(_liveTimer)clearInterval(_liveTimer);
-  _liveTimer=setInterval(loadLiveWorkbook,LIVE_REFRESH_MS);
 }
 
 document.addEventListener('DOMContentLoaded',()=>setTimeout(startLiveWorkbook,300));
