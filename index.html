@@ -88,7 +88,6 @@ h1 span{color:var(--gold2);text-shadow:0 0 20px rgba(251,191,36,.4);}
 .btn-save{background:linear-gradient(135deg,#059669,#10b981);color:#fff;border:none;padding:11px 22px;border-radius:12px;font-family:'Sarabun',sans-serif;font-size:14px;font-weight:700;cursor:pointer;display:none;align-items:center;gap:8px;box-shadow:0 4px 16px rgba(16,185,129,.4);transition:background-color .25s,color .25s,border-color .25s,opacity .25s,transform .25s;white-space:nowrap;letter-spacing:.02em;}
 .btn-save:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(16,185,129,.55);}
 .btn-save:active{transform:translateY(0);}
-#fileInput{display:none;}
 .fstatus{font-size:12px;color:var(--text2);display:flex;align-items:center;gap:7px;}
 .dot{width:8px;height:8px;border-radius:50%;background:var(--text2);flex-shrink:0;transition:background-color .4s,box-shadow .4s;}
 .dot.on{background:var(--green);box-shadow:0 0 8px var(--green);}
@@ -1018,6 +1017,36 @@ header{
 #btn-print:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(14,165,233,.6);}
 #btn-print:active{transform:translateY(0);}
 
+#btn-executive-summary{
+  background:linear-gradient(135deg,#f59e0b,#fbbf24);
+  color:#07101f;border:none;padding:11px 22px;border-radius:12px;
+  font-family:'Sarabun',sans-serif;font-size:14px;font-weight:800;
+  cursor:pointer;display:flex;align-items:center;gap:8px;
+  box-shadow:0 4px 16px rgba(245,158,11,.32);transition:background-color .25s,color .25s,border-color .25s,opacity .25s,transform .25s;
+  white-space:nowrap;letter-spacing:.01em;
+}
+#btn-executive-summary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(245,158,11,.48);}
+#btn-executive-summary:active{transform:translateY(0);}
+
+.executive-summary-card{
+  background:#f8fafc;color:#0f172a;border-radius:16px;padding:24px;
+  border:1px solid #dbeafe;box-shadow:0 12px 36px rgba(3,8,18,.18);
+}
+.executive-summary-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:18px 0;}
+.executive-summary-kpi{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:11px 12px;min-width:0;}
+.executive-summary-kpi-label{font-size:10px;color:#64748b;font-weight:700;margin-bottom:4px;}
+.executive-summary-kpi-value{font-family:'IBM Plex Sans Thai',sans-serif;font-size:17px;font-weight:800;line-height:1.25;overflow-wrap:anywhere;}
+.executive-summary-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;}
+.executive-summary-action{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.07);color:#f0f4ff;border-radius:10px;padding:10px 14px;font-family:'Sarabun',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:background-color .2s,border-color .2s,transform .2s;white-space:nowrap;}
+.executive-summary-action:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.22);transform:translateY(-1px);}
+.executive-summary-action.primary{background:#2563eb;border-color:#2563eb;color:#fff;}
+.executive-summary-action.gold{background:#f59e0b;border-color:#f59e0b;color:#07101f;}
+@media(max-width:700px){
+  .executive-summary-kpis{grid-template-columns:repeat(2,1fr);}
+  .executive-summary-card{padding:18px;}
+  .executive-summary-action{width:100%;justify-content:center;}
+}
+
 /* ── Print Report ── */
 @media print{
   body > *:not(#_po){ display:none !important; }
@@ -1147,6 +1176,47 @@ body.is-shared-file .overall-budget-section {
   </div>
 </div>
 
+<!-- สรุปเสนอผู้บังคับบัญชา -->
+<div class="modal-bg" id="executiveSummaryBg" onclick="if(event.target===this)closeExecutiveSummary()" style="z-index:280;">
+  <div class="modal" style="max-width:760px;width:100%;">
+    <div class="modal-hdr">
+      <div class="modal-hdr-l">
+        <div class="modal-ico" style="background:rgba(245,158,11,.16);">📋</div>
+        <div>
+          <div class="modal-title">สรุปเสนอผู้บังคับบัญชา</div>
+          <div class="modal-sub" id="executiveSummarySub">สร้างจากข้อมูลล่าสุดบนแดชบอร์ด</div>
+        </div>
+      </div>
+      <button class="modal-close" onclick="closeExecutiveSummary()" aria-label="ปิดสรุป">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="executive-summary-card" id="executiveSummaryCard">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:14px;border-bottom:2px solid #1d4ed8;padding-bottom:13px;">
+          <div>
+            <div style="font-size:18px;font-weight:800;color:#1e3a8a;">สรุปสถานะงบประมาณ สภ.บางบาล</div>
+            <div style="font-size:12px;color:#64748b;margin-top:3px;">ปีงบประมาณ 2569</div>
+          </div>
+          <div id="executiveSummaryStatus" style="font-size:11px;font-weight:800;border-radius:7px;padding:5px 9px;white-space:nowrap;"></div>
+        </div>
+        <div class="executive-summary-kpis">
+          <div class="executive-summary-kpi"><div class="executive-summary-kpi-label">งบที่ได้รับ</div><div class="executive-summary-kpi-value" id="execBudget" style="color:#1d4ed8;"></div></div>
+          <div class="executive-summary-kpi"><div class="executive-summary-kpi-label">ใช้ไปแล้ว</div><div class="executive-summary-kpi-value" id="execUsed" style="color:#b45309;"></div></div>
+          <div class="executive-summary-kpi"><div class="executive-summary-kpi-label">คงเหลือ</div><div class="executive-summary-kpi-value" id="execRemain" style="color:#047857;"></div></div>
+          <div class="executive-summary-kpi"><div class="executive-summary-kpi-label">% ใช้ไป</div><div class="executive-summary-kpi-value" id="execPct" style="color:#7c3aed;"></div></div>
+        </div>
+        <div id="executiveSummaryText" style="white-space:pre-line;font-size:13px;line-height:1.85;color:#334155;"></div>
+        <div id="executiveSummaryDate" style="border-top:1px solid #e2e8f0;margin-top:16px;padding-top:10px;font-size:11px;color:#64748b;text-align:right;"></div>
+      </div>
+      <div class="executive-summary-actions">
+        <button class="executive-summary-action primary" id="btnCopyExecutive" onclick="copyExecutiveSummary()">📄 คัดลอกข้อความ</button>
+        <button class="executive-summary-action" onclick="closeExecutiveSummary();openPrintView()">🖨️ พิมพ์ / บันทึก PDF</button>
+        <button class="executive-summary-action gold" id="btnDownloadExecutive" onclick="downloadExecutiveSummaryImage()">🖼️ ดาวน์โหลดภาพสรุป</button>
+      </div>
+      <div id="executiveSummaryFeedback" role="status" aria-live="polite" style="min-height:18px;margin-top:9px;font-size:12px;color:#34d399;"></div>
+    </div>
+  </div>
+</div>
+
 <div class="wrap">
   <header>
     <div class="hdr-left">
@@ -1159,24 +1229,22 @@ body.is-shared-file .overall-budget-section {
     </div>
     <div class="imp-area">
       <div class="fstatus"><div class="dot on" id="dot"></div></div>
-      <button class="btn-imp" onclick="document.getElementById('fileInput').click()">📂 นำเข้า Excel</button>
       <span class="tt-wrap" id="btn-compare-wrap" style="display: inline-flex;">
         <button id="btn-compare" onclick="toggleCompareMode()" style="display: flex;">📊 เปรียบเทียบ</button><span class="tt-icon" onclick="showInfo('📊 เปรียบเทียบรายการ','เลือกรายการหลายรายการจากหมวดใดก็ได้มารวมกัน แล้วดูสรุป&lt;br&gt;&lt;br&gt;• งบรวมทั้งหมดของกลุ่มที่เลือก&lt;br&gt;• ยอดใช้ไปรวม&lt;br&gt;• คงเหลือรวม&lt;br&gt;• % การใช้จ่าย&lt;br&gt;• Burn Rate ของกลุ่มนี้')" style="margin-left:6px;">?</span>
         
       </span>
       <button id="btn-simulate" onclick="openSimDrawer()" style="display: flex;">🔀 จำลองโยกงบ</button>
       <button id="btn-print" onclick="openPrintView()" style="display: flex;">🖨️ พิมพ์รายงาน</button>
-      <button class="btn-save" id="btnSave" onclick="saveSnapshot()" style="display: flex;">💾 บันทึก &amp; แชร์</button>
-      <input type="file" id="fileInput" accept=".xlsx,.xls" onchange="loadFile(event)">
+      <button id="btn-executive-summary" onclick="openExecutiveSummary()">📋 สรุปเสนอผู้บังคับบัญชา</button>
     </div>
   </header>
 
   <div id="es" style="display: none;">
     <div class="empty">
       <div class="ei">📊</div>
-      <div class="et">ยังไม่มีข้อมูล — กรุณานำเข้าไฟล์ Excel</div>
-      <div class="ed">กดปุ่ม <strong>📂 นำเข้า Excel</strong> มุมขวาบน แล้วเลือกไฟล์ <em>งบ69_บางบาล.xlsx</em></div>
-      <div class="tip">💡 <div>เมื่อแก้ไขตัวเลขในไฟล์ Excel แล้ว บันทึกไฟล์ แล้วกด <strong>นำเข้า Excel</strong> ใหม่อีกครั้ง แดชบอร์ดจะอัปเดตทันที<br>คลิกที่ชื่อรายการ เพื่อดูรายละเอียดรายเดือน</div></div>
+      <div class="et">ยังไม่มีข้อมูลจาก Google Sheets</div>
+      <div class="ed">กรุณาตรวจสอบการเชื่อมต่อ แล้วรีเฟรชหน้าเว็บอีกครั้ง</div>
+      <div class="tip">💡 <div>แดชบอร์ดจะอัปเดตอัตโนมัติจากไฟล์กรอกงบเรียลไทม์<br>คลิกที่ชื่อรายการเพื่อดูรายละเอียดรายเดือน</div></div>
     </div>
   </div>
 
@@ -1689,7 +1757,7 @@ async function loadLiveWorkbook(){
   }catch(err){
     console.error('[loadLiveWorkbook] Error:',err);
     if(!ITEM_MAP||Object.keys(ITEM_MAP).length===0){
-      alert('ไม่สามารถโหลดข้อมูลจาก Google Sheets ได้ กรุณาตรวจสอบการเผยแพร่ชีต หรือกดนำเข้า Excel ด้วยตนเอง');
+      alert('ไม่สามารถโหลดข้อมูลจาก Google Sheets ได้ กรุณาตรวจสอบการเผยแพร่ชีต แล้วรีเฟรชหน้าเว็บอีกครั้ง');
     }
   }finally{
     if(lov)lov.classList.remove('show');
@@ -2036,16 +2104,12 @@ function render(map,fname){
   document.getElementById('mc').style.display='block';
   const dotEl=document.getElementById('dot');
   const flblEl=document.getElementById('flbl');
-  const btnSaveEl=document.getElementById('btnSave');
   if(dotEl) dotEl.classList.add('on');
   if(flblEl) flblEl.textContent=fname;
-  // แสดงปุ่มบันทึกเฉพาะเมื่อไม่ได้อยู่ในโหมด snapshot
-  if(btnSaveEl && !document.body.classList.contains('snapshot-mode')) {
-    btnSaveEl.style.display='flex';
   const btnCmpWrap=document.getElementById('btn-compare-wrap');if(btnCmpWrap)btnCmpWrap.style.display='inline-flex';const btnCmp=document.getElementById('btn-compare');if(btnCmp)btnCmp.style.display='flex';
   const btnPrint=document.getElementById('btn-print');if(btnPrint)btnPrint.style.display='flex';
   const btnSim=document.getElementById('btn-simulate');if(btnSim)btnSim.style.display='flex';
-  }
+  const btnExecutive=document.getElementById('btn-executive-summary');if(btnExecutive)btnExecutive.style.display='flex';
 
   const allItems=CATS.flatMap(c=>c.items);
   const totalB=allItems.reduce((s,n)=>s+(map[n]?.budget||0),0);
@@ -2779,8 +2843,7 @@ function renderOverview() {
   } else { el.innerHTML=`<div style="text-align:center;padding:72px 24px 80px;color:var(--text2);">
     <div style="font-size:52px;margin-bottom:18px;opacity:.35;">📋</div>
     <div style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:8px;">ยังไม่ได้โหลดข้อมูล</div>
-    <div style="font-size:13px;line-height:1.8;margin-bottom:22px;">กดปุ่ม <strong style="color:var(--cyan)">📂 นำเข้า Excel</strong> มุมขวาบน เพื่อโหลดไฟล์งบประมาณก่อน</div>
-    <button onclick="document.getElementById('fileInput').click()" class="empty-state-btn">📂 นำเข้า Excel</button>
+    <div style="font-size:13px;line-height:1.8;">ไม่สามารถโหลดข้อมูลจาก Google Sheets ได้ กรุณาตรวจสอบการเชื่อมต่อแล้วรีเฟรชหน้าเว็บ</div>
   </div>`; return; }
   const num = v => (v!==null&&v!==undefined&&typeof v==='number')?v:null;
   const pctStr = v => { if(v===null||v===undefined)return'-'; if(typeof v==='string')return v; if(typeof v==='number')return parseFloat((v*100).toFixed(2))+'%'; return'-'; };
@@ -2948,8 +3011,7 @@ function renderTransfer() {
       el.innerHTML=`<div style="text-align:center;padding:72px 24px 80px;color:var(--text2);">
     <div style="font-size:52px;margin-bottom:18px;opacity:.35;">📊</div>
     <div style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:8px;">ยังไม่ได้โหลดข้อมูล</div>
-    <div style="font-size:13px;line-height:1.8;margin-bottom:22px;">กดปุ่ม <strong style="color:var(--cyan)">📂 นำเข้า Excel</strong> มุมขวาบน เพื่อโหลดไฟล์งบประมาณก่อน</div>
-    <button onclick="document.getElementById('fileInput').click()" class="empty-state-btn">📂 นำเข้า Excel</button>
+    <div style="font-size:13px;line-height:1.8;">ไม่สามารถโหลดข้อมูลจาก Google Sheets ได้ กรุณาตรวจสอบการเชื่อมต่อแล้วรีเฟรชหน้าเว็บ</div>
   </div>`; return;
     }
     _renderTransferFromData(el, _FROZEN_TABS.transfer.entries, _FROZEN_TABS.transfer.sumRows);
@@ -3155,8 +3217,7 @@ function renderExtrabudget() {
       el.innerHTML=`<div style="text-align:center;padding:72px 24px 80px;color:var(--text2);">
     <div style="font-size:52px;margin-bottom:18px;opacity:.35;">📊</div>
     <div style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:8px;">ยังไม่ได้โหลดข้อมูล</div>
-    <div style="font-size:13px;line-height:1.8;margin-bottom:22px;">กดปุ่ม <strong style="color:var(--cyan)">📂 นำเข้า Excel</strong> มุมขวาบน เพื่อโหลดไฟล์งบประมาณก่อน</div>
-    <button onclick="document.getElementById('fileInput').click()" class="empty-state-btn">📂 นำเข้า Excel</button>
+    <div style="font-size:13px;line-height:1.8;">ไม่สามารถโหลดข้อมูลจาก Google Sheets ได้ กรุณาตรวจสอบการเชื่อมต่อแล้วรีเฟรชหน้าเว็บ</div>
   </div>`
     }
     _renderExtrabudgetFromData(el, _FROZEN_TABS.extrabudget.entries);
@@ -5232,6 +5293,156 @@ function simRow2(l,v,c){
 <script>
 
 
+let _executiveSummaryPlainText='';
+
+function getExecutiveSummaryData(){
+  const allItems=CATS.flatMap(c=>c.items);
+  const items=allItems.map(n=>ITEM_MAP[n]).filter(Boolean);
+  const totalBudget=parseFloat(items.reduce((sum,item)=>sum+(item.budget||0),0).toFixed(2));
+  const actualUsed=parseFloat(items.reduce((sum,item)=>sum+(item.used||0),0).toFixed(2));
+  const deficitCoverage=parseFloat(getDeficitCoverageUsage(ITEM_MAP).toFixed(2));
+  const totalUsed=parseFloat((actualUsed+deficitCoverage).toFixed(2));
+  const remaining=parseFloat((totalBudget-totalUsed).toFixed(2));
+  const percent=totalBudget>0?parseFloat((totalUsed/totalBudget*100).toFixed(2)):0;
+  const overItems=items.filter(item=>item.status==='เกินงบ');
+  const topItem=[...items].sort((a,b)=>(b.used||0)-(a.used||0))[0]||null;
+  return {totalBudget,actualUsed,deficitCoverage,totalUsed,remaining,percent,overItems,topItem};
+}
+
+function getExecutiveThaiDate(){
+  const now=new Date();
+  const months=['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'];
+  return `${now.getDate()} ${months[now.getMonth()]} พ.ศ. ${now.getFullYear()+543} เวลา ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')} น.`;
+}
+
+function openExecutiveSummary(){
+  if(!ITEM_MAP||Object.keys(ITEM_MAP).length===0){
+    alert('ยังไม่มีข้อมูลสำหรับจัดทำสรุป กรุณารอให้แดชบอร์ดโหลดข้อมูลจาก Google Sheets ก่อน');
+    return;
+  }
+  const data=getExecutiveSummaryData();
+  const dateText=getExecutiveThaiDate();
+  const overNames=data.overItems.map(item=>item.name).join(', ');
+  const remainingText=data.remaining<0
+    ?`เกินงบภาพรวม ${fmt(Math.abs(data.remaining))} บาท`
+    :`คงเหลือ ${fmt(data.remaining)} บาท`;
+  const overText=data.overItems.length>0
+    ?`มีรายการเกินงบจำนวน ${data.overItems.length} รายการ ได้แก่ ${overNames}`
+    :'ไม่พบรายการเกินงบ';
+  const topText=data.topItem
+    ?`รายการที่มีการใช้จ่ายสูงสุดคือ ${data.topItem.name} จำนวน ${fmt(data.topItem.used)} บาท`
+    :'ยังไม่มีข้อมูลการใช้จ่าย';
+
+  _executiveSummaryPlainText=[
+    'เรียน ผู้บังคับบัญชา',
+    '',
+    `ขอสรุปสถานะงบประมาณ สภ.บางบาล ปีงบประมาณ 2569 ข้อมูล ณ วันที่ ${dateText}`,
+    `ได้รับงบประมาณทั้งหมด ${fmt(data.totalBudget)} บาท ใช้ไปแล้ว ${fmt(data.totalUsed)} บาท คิดเป็น ${data.percent}% และ${remainingText}`,
+    `${overText}`,
+    `มียอดโยกงบที่นำไปชดเชยรายการติดลบรวม ${fmt(data.deficitCoverage)} บาท`,
+    `${topText}`,
+    '',
+    'จึงเรียนมาเพื่อโปรดทราบ'
+  ].join('\n');
+
+  document.getElementById('execBudget').textContent=fmt(data.totalBudget)+' บาท';
+  document.getElementById('execUsed').textContent=fmt(data.totalUsed)+' บาท';
+  const remainEl=document.getElementById('execRemain');
+  remainEl.textContent=(data.remaining<0?'เกิน ':'')+fmt(Math.abs(data.remaining))+' บาท';
+  remainEl.style.color=data.remaining<0?'#b91c1c':'#047857';
+  document.getElementById('execPct').textContent=data.percent+'%';
+  document.getElementById('executiveSummaryText').textContent=_executiveSummaryPlainText;
+  document.getElementById('executiveSummaryDate').textContent='จัดทำเมื่อ '+dateText;
+  document.getElementById('executiveSummarySub').textContent='ข้อมูล ณ วันที่ '+dateText;
+
+  const statusEl=document.getElementById('executiveSummaryStatus');
+  if(data.overItems.length>0){
+    statusEl.textContent='ต้องติดตาม '+data.overItems.length+' รายการ';
+    statusEl.style.background='#fef2f2';
+    statusEl.style.color='#b91c1c';
+    statusEl.style.border='1px solid #fecaca';
+  }else{
+    statusEl.textContent='ภาพรวมปกติ';
+    statusEl.style.background='#ecfdf5';
+    statusEl.style.color='#047857';
+    statusEl.style.border='1px solid #a7f3d0';
+  }
+
+  document.getElementById('executiveSummaryFeedback').textContent='';
+  document.getElementById('executiveSummaryBg').classList.add('show');
+  document.body.style.overflow='hidden';
+}
+
+function closeExecutiveSummary(){
+  const el=document.getElementById('executiveSummaryBg');
+  if(el)el.classList.remove('show');
+  document.body.style.overflow='';
+}
+
+async function copyExecutiveSummary(){
+  const feedback=document.getElementById('executiveSummaryFeedback');
+  const button=document.getElementById('btnCopyExecutive');
+  feedback.style.color='#34d399';
+  try{
+    if(navigator.clipboard&&window.isSecureContext){
+      await navigator.clipboard.writeText(_executiveSummaryPlainText);
+    }else{
+      const input=document.createElement('textarea');
+      input.value=_executiveSummaryPlainText;
+      input.style.position='fixed';
+      input.style.opacity='0';
+      document.body.appendChild(input);
+      input.focus();
+      input.select();
+      document.execCommand('copy');
+      input.remove();
+    }
+    button.textContent='✓ คัดลอกแล้ว';
+    feedback.textContent='คัดลอกข้อความสรุปแล้ว สามารถนำไปวางใน LINE หนังสือ หรือข้อความรายงานได้ทันที';
+    setTimeout(()=>{button.textContent='📄 คัดลอกข้อความ';feedback.textContent='';},2600);
+  }catch(err){
+    feedback.style.color='#f87171';
+    feedback.textContent='ไม่สามารถคัดลอกอัตโนมัติได้ กรุณาเลือกข้อความในกรอบแล้วคัดลอกด้วยตนเอง';
+  }
+}
+
+async function downloadExecutiveSummaryImage(){
+  const card=document.getElementById('executiveSummaryCard');
+  const button=document.getElementById('btnDownloadExecutive');
+  const feedback=document.getElementById('executiveSummaryFeedback');
+  if(!card||typeof html2canvas!=='function'){
+    feedback.style.color='#f87171';
+    feedback.textContent='ไม่สามารถสร้างภาพสรุปได้ในขณะนี้';
+    return;
+  }
+  const originalText=button.textContent;
+  button.disabled=true;
+  button.textContent='กำลังสร้างภาพ...';
+  feedback.style.color='#34d399';
+  feedback.textContent='';
+  try{
+    const canvas=await html2canvas(card,{scale:2,backgroundColor:'#f8fafc',useCORS:true,logging:false});
+    const now=new Date();
+    const stamp=`${now.getFullYear()}${String(now.getMonth()+1).padStart(2,'0')}${String(now.getDate()).padStart(2,'0')}`;
+    const link=document.createElement('a');
+    link.download=`สรุปงบประมาณ_สภบางบาล_2569_${stamp}.png`;
+    link.href=canvas.toDataURL('image/png');
+    link.click();
+    feedback.textContent='ดาวน์โหลดภาพสรุปเรียบร้อยแล้ว';
+  }catch(err){
+    feedback.style.color='#f87171';
+    feedback.textContent='สร้างภาพสรุปไม่สำเร็จ กรุณาลองใหม่อีกครั้ง';
+  }finally{
+    button.disabled=false;
+    button.textContent=originalText;
+  }
+}
+
+document.addEventListener('keydown',function(event){
+  if(event.key==='Escape')closeExecutiveSummary();
+});
+
+
 // ── Back gesture handler — ป้องกัน swipe back ออกจากแดชบอร์ด ──────────
 (function(){
   // push state เริ่มต้นเพื่อให้มี history entry
@@ -5244,6 +5455,12 @@ function simRow2(l,v,c){
     // print view
     var po=document.getElementById('_po');
     if(po){ po.remove(); document.body.style.overflow=''; return true; }
+    // executive summary
+    var es=document.getElementById('executiveSummaryBg');
+    if(es&&es.classList.contains('show')){
+      if(typeof closeExecutiveSummary==='function') closeExecutiveSummary();
+      return true;
+    }
     // compare result
     var cdr=document.getElementById('cdrResultBg');
     if(cdr&&cdr.classList.contains('show')){
@@ -5304,7 +5521,7 @@ function simRow2(l,v,c){
 
   // รอ DOM ready ก่อน patch
   function doPatch(){
-    ['openSimDrawer','openPrintView','openModal','openBurnModal',
+    ['openSimDrawer','openPrintView','openExecutiveSummary','openModal','openBurnModal',
      'openOverModal','toggleCompareMode','showInfo'].forEach(patchOpen);
     // toggleCompareMode เปิดได้อย่างเดียว ถ้าปิดอยู่
     var _tCmp=window.toggleCompareMode;
