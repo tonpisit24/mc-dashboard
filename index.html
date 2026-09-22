@@ -5306,13 +5306,42 @@ function getExecutiveSummaryData(){
   const percent=totalBudget>0?parseFloat((totalUsed/totalBudget*100).toFixed(2)):0;
   const overItems=items.filter(item=>item.status==='เกินงบ');
   const topItem=[...items].sort((a,b)=>(b.used||0)-(a.used||0))[0]||null;
-  return {totalBudget,actualUsed,deficitCoverage,totalUsed,remaining,percent,overItems,topItem};
+  const utilities=ITEM_MAP['ค่าสาธารณูปโภค']||null;
+  const overtime=ITEM_MAP['โอที']||null;
+  const fuel=ITEM_MAP['ค่าน้ำมัน+รถเช่า']||null;
+  return {totalBudget,actualUsed,deficitCoverage,totalUsed,remaining,percent,overItems,topItem,utilities,overtime,fuel};
 }
 
-function getExecutiveThaiDate(){
+function getExecutiveThaiDate(includeTime=true){
   const now=new Date();
   const months=['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'];
-  return `${now.getDate()} ${months[now.getMonth()]} พ.ศ. ${now.getFullYear()+543} เวลา ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')} น.`;
+  const dateText=`${now.getDate()} ${months[now.getMonth()]} พ.ศ. ${now.getFullYear()+543}`;
+  return includeTime?`${dateText} เวลา ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')} น.`:dateText;
+}
+
+function getLatestExecutiveDisbursement(item){
+  if(!item||!Array.isArray(item.monthly))return null;
+  for(let index=Math.min(item.monthly.length,MONTHS.length)-1;index>=0;index--){
+    const amount=Number(item.monthly[index])||0;
+    if(amount>0){
+      return {
+        month:String(MONTHS[index]||'').replace(/\s+\d{2,4}\s*$/,'').trim(),
+        amount:parseFloat(amount.toFixed(2))
+      };
+    }
+  }
+  return null;
+}
+
+function getExecutiveLatestText(item){
+  const latest=getLatestExecutiveDisbursement(item);
+  return latest?`เบิกล่าสุด ${latest.month} จำนวน ${fmt(latest.amount)} บาท`:'ยังไม่มีข้อมูลการเบิกจ่าย';
+}
+
+function getExecutiveUtilityLines(utilities){
+  const subItems=utilities&&Array.isArray(utilities.subItems)?utilities.subItems:[];
+  if(!subItems.length)return ['ยังไม่มีรายละเอียดค่าสาธารณูปโภค'];
+  return subItems.map(item=>`${String(item.name||'รายการสาธารณูปโภค').trim()}: ${getExecutiveLatestText(item)}`);
 }
 
 function openExecutiveSummary(){
@@ -5321,28 +5350,29 @@ function openExecutiveSummary(){
     return;
   }
   const data=getExecutiveSummaryData();
-  const dateText=getExecutiveThaiDate();
-  const overNames=data.overItems.map(item=>item.name).join(', ');
+  const dateText=getExecutiveThaiDate(false);
+  const createdAt=getExecutiveThaiDate(true);
   const remainingText=data.remaining<0
     ?`เกินงบภาพรวม ${fmt(Math.abs(data.remaining))} บาท`
     :`คงเหลือ ${fmt(data.remaining)} บาท`;
-  const overText=data.overItems.length>0
-    ?`มีรายการเกินงบจำนวน ${data.overItems.length} รายการ ได้แก่ ${overNames}`
-    :'ไม่พบรายการเกินงบ';
-  const topText=data.topItem
-    ?`รายการที่มีการใช้จ่ายสูงสุดคือ ${data.topItem.name} จำนวน ${fmt(data.topItem.used)} บาท`
-    :'ยังไม่มีข้อมูลการใช้จ่าย';
+  const utilityLines=getExecutiveUtilityLines(data.utilities);
+  const detailLines=[
+    '⚡ ค่าสาธารณูปโภค',
+    ...utilityLines,
+    '',
+    '👮 ค่าตอบแทนการปฏิบัติงานนอกเวลา หรือ OT',
+    getExecutiveLatestText(data.overtime),
+    '',
+    '⛽ ค่าน้ำมันและค่าเช่ารถ',
+    getExecutiveLatestText(data.fuel)
+  ];
 
   _executiveSummaryPlainText=[
-    'เรียน ผู้บังคับบัญชา',
-    '',
-    `ขอสรุปสถานะงบประมาณ สภ.บางบาล ปีงบประมาณ 2569 ข้อมูล ณ วันที่ ${dateText}`,
+    '📊 สรุปสถานะงบประมาณ สภ.บางบาล ปีงบประมาณ 2569',
+    `ข้อมูล ณ วันที่ ${dateText}`,
     `ได้รับงบประมาณทั้งหมด ${fmt(data.totalBudget)} บาท ใช้ไปแล้ว ${fmt(data.totalUsed)} บาท คิดเป็น ${data.percent}% และ${remainingText}`,
-    `${overText}`,
-    `มียอดโยกงบที่นำไปชดเชยรายการติดลบรวม ${fmt(data.deficitCoverage)} บาท`,
-    `${topText}`,
     '',
-    'จึงเรียนมาเพื่อโปรดทราบ'
+    ...detailLines
   ].join('\n');
 
   document.getElementById('execBudget').textContent=fmt(data.totalBudget)+' บาท';
@@ -5351,8 +5381,8 @@ function openExecutiveSummary(){
   remainEl.textContent=(data.remaining<0?'เกิน ':'')+fmt(Math.abs(data.remaining))+' บาท';
   remainEl.style.color=data.remaining<0?'#b91c1c':'#047857';
   document.getElementById('execPct').textContent=data.percent+'%';
-  document.getElementById('executiveSummaryText').textContent=_executiveSummaryPlainText;
-  document.getElementById('executiveSummaryDate').textContent='จัดทำเมื่อ '+dateText;
+  document.getElementById('executiveSummaryText').textContent=detailLines.join('\n');
+  document.getElementById('executiveSummaryDate').textContent='จัดทำเมื่อ '+createdAt;
   document.getElementById('executiveSummarySub').textContent='ข้อมูล ณ วันที่ '+dateText;
 
   const statusEl=document.getElementById('executiveSummaryStatus');
