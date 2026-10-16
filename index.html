@@ -1706,10 +1706,15 @@ function changeFiscalYear(value){
   location.assign(url.href);
 }
 
-document.title='แดชบอร์ดงบประมาณ สภ.บางบาล ปี '+ACTIVE_YEAR;
-document.getElementById('fiscalYearSelect').value=String(ACTIVE_YEAR);
-document.getElementById('fiscalYearSubtitle').textContent='ปีงบประมาณ '+ACTIVE_YEAR+' · '+BUDGET_YEARS[ACTIVE_YEAR].description;
-document.getElementById('executiveFiscalYear').textContent='ปีงบประมาณ '+ACTIVE_YEAR;
+function syncFiscalYearLabels(){
+  document.title='แดชบอร์ดงบประมาณ สภ.บางบาล ปี '+ACTIVE_YEAR;
+  document.getElementById('fiscalYearSelect').value=String(ACTIVE_YEAR);
+  document.getElementById('fiscalYearSubtitle').textContent='ปีงบประมาณ '+ACTIVE_YEAR+' · '+BUDGET_YEARS[ACTIVE_YEAR].description;
+  document.getElementById('executiveFiscalYear').textContent='ปีงบประมาณ '+ACTIVE_YEAR;
+}
+syncFiscalYearLabels();
+// Browsers restore select values with the back/forward cache; sync after that restoration.
+window.addEventListener('pageshow',()=>requestAnimationFrame(syncFiscalYearLabels));
 const CATS=[
   {id:'c1',label:'1. งบบังคับใช้ · หมวดงานสอบสวน',short:'หมวดงานสอบสวน',icon:'🔍',ic:'b',
    items:['ค่าคุ้มครองพยาน','ค่าตอบแทนพยาน','ค่าตอบแทนนักจิต','ค่าชันสูตรผลิกศพ','ค่าส่งหมายเรียก']},
@@ -2139,7 +2144,7 @@ function render(map,fname){
     }
   }
   document.getElementById('es').style.display='none';
-  switchTab('main');
+  _switchTabQuiet('main');
   document.getElementById('mc').style.display='block';
   const dotEl=document.getElementById('dot');
   const flblEl=document.getElementById('flbl');
