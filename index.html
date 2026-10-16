@@ -1,12 +1,12 @@
 <html lang="th"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>แดชบอร์ดงบประมาณ สภ.บางบาล ปี 2569</title>
+<title>แดชบอร์ดงบประมาณ สภ.บางบาล ปี 2570</title>
 <!-- Open Graph — ควบคุมการแสดงผลตอนแชร์ใน LINE / Facebook -->
-<meta property="og:title" content="แดชบอร์ดงบประมาณ สภ.บางบาล ปี 2569">
+<meta property="og:title" content="แดชบอร์ดงบประมาณ สภ.บางบาล ปี 2570">
 <meta property="og:description" content="ติดตามสถานะงบประมาณ · ยอดใช้จ่าย · คาดการณ์สิ้นปี">
 <meta property="og:type" content="website">
-<meta name="description" content="แดชบอร์ดติดตามสถานะงบประมาณ สภ.บางบาล ปี 2569">
+<meta name="description" content="แดชบอร์ดติดตามสถานะงบประมาณ สภ.บางบาล ปี 2570">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -1194,7 +1194,7 @@ body.is-shared-file .overall-budget-section {
         <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:14px;border-bottom:2px solid #1d4ed8;padding-bottom:13px;">
           <div>
             <div style="font-size:18px;font-weight:800;color:#1e3a8a;">สรุปสถานะงบประมาณ สภ.บางบาล</div>
-            <div style="font-size:12px;color:#64748b;margin-top:3px;">ปีงบประมาณ 2569</div>
+            <div style="font-size:12px;color:#64748b;margin-top:3px;">ปีงบประมาณ 2570</div>
           </div>
           <div id="executiveSummaryStatus" style="font-size:11px;font-weight:800;border-radius:7px;padding:5px 9px;white-space:nowrap;"></div>
         </div>
@@ -1223,32 +1223,32 @@ body.is-shared-file .overall-budget-section {
       <div class="hdr-badge">👮</div>
       <div>
         <h1>แดชบอร์ดงบประมาณ <span>สภ.บางบาล</span></h1>
-        <div class="sub">ปีงบประมาณ 2569</div>
+        <div class="sub">ปีงบประมาณ 2570 · งบจัดสรรไตรมาส 1–2 ครั้งที่ 1</div>
         <div id="dateDisplay"></div>
       <div id="loadedAt" style="font-size: 12px; color: var(--text2); margin-top: 4px; font-weight: 400;"></div></div>
     </div>
     <div class="imp-area">
-      <div class="fstatus"><div class="dot on" id="dot"></div></div>
-      <span class="tt-wrap" id="btn-compare-wrap" style="display: inline-flex;">
-        <button id="btn-compare" onclick="toggleCompareMode()" style="display: flex;">📊 เปรียบเทียบ</button><span class="tt-icon" onclick="showInfo('📊 เปรียบเทียบรายการ','เลือกรายการหลายรายการจากหมวดใดก็ได้มารวมกัน แล้วดูสรุป&lt;br&gt;&lt;br&gt;• งบรวมทั้งหมดของกลุ่มที่เลือก&lt;br&gt;• ยอดใช้ไปรวม&lt;br&gt;• คงเหลือรวม&lt;br&gt;• % การใช้จ่าย&lt;br&gt;• Burn Rate ของกลุ่มนี้')" style="margin-left:6px;">?</span>
+      <div class="fstatus"><div class="dot" id="dot"></div></div>
+      <span class="tt-wrap" id="btn-compare-wrap" style="display:none;">
+        <button id="btn-compare" onclick="toggleCompareMode()" style="display:none;">📊 เปรียบเทียบ</button><span class="tt-icon" onclick="showInfo('📊 เปรียบเทียบรายการ','เลือกรายการหลายรายการจากหมวดใดก็ได้มารวมกัน แล้วดูสรุป&lt;br&gt;&lt;br&gt;• งบรวมทั้งหมดของกลุ่มที่เลือก&lt;br&gt;• ยอดใช้ไปรวม&lt;br&gt;• คงเหลือรวม&lt;br&gt;• % การใช้จ่าย&lt;br&gt;• Burn Rate ของกลุ่มนี้')" style="margin-left:6px;">?</span>
         
       </span>
-      <button id="btn-simulate" onclick="openSimDrawer()" style="display: flex;">🔀 จำลองโยกงบ</button>
-      <button id="btn-print" onclick="openPrintView()" style="display: flex;">🖨️ พิมพ์รายงาน</button>
+      <button id="btn-simulate" onclick="openSimDrawer()" style="display:none;">🔀 จำลองโยกงบ</button>
+      <button id="btn-print" onclick="openPrintView()" style="display:none;">🖨️ พิมพ์รายงาน</button>
       <button id="btn-executive-summary" onclick="openExecutiveSummary()">📋 สรุปเสนอผู้บังคับบัญชา</button>
     </div>
   </header>
 
-  <div id="es" style="display: none;">
+  <div id="es" style="display:block;">
     <div class="empty">
       <div class="ei">📊</div>
-      <div class="et">ยังไม่มีข้อมูลจาก Google Sheets</div>
+      <div class="et">กำลังโหลดข้อมูลจาก Google Sheets</div>
       <div class="ed">กรุณาตรวจสอบการเชื่อมต่อ แล้วรีเฟรชหน้าเว็บอีกครั้ง</div>
       <div class="tip">💡 <div>แดชบอร์ดจะอัปเดตอัตโนมัติจากไฟล์กรอกงบเรียลไทม์<br>คลิกที่ชื่อรายการเพื่อดูรายละเอียดรายเดือน</div></div>
     </div>
   </div>
 
-  <div id="mc" style="display: block;">
+  <div id="mc" style="display:none;">
     <!-- Tab Nav -->
     <div id="tab-nav" class="tab-bar" style="display:flex;gap:8px;margin-bottom:32px;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:18px;padding:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;">
       <button class="tab-btn active" id="tbtn-main" onclick="switchTab('main')">📊 แดชบอร์ด</button>
@@ -1290,7 +1290,7 @@ body.is-shared-file .overall-budget-section {
         <div style="height:5px;background:rgba(255,255,255,.07);border-radius:3px;overflow:hidden;margin-bottom:6px;">
           <div style="height:100%;width:75%;background:linear-gradient(90deg,var(--accent),var(--cyan));border-radius:3px;"></div>
         </div>
-        <div style="font-size:12px;color:var(--text2);">เหลืออีก <strong style="color:#f0f4ff;">3</strong> เดือน · ปีงบ 2569 สิ้นสุด ก.ย. 69</div>
+        <div style="font-size:12px;color:var(--text2);">เหลืออีก <strong style="color:#f0f4ff;">3</strong> เดือน · ปีงบ 2570 สิ้นสุด ก.ย. 70</div>
       </div>
       <!-- C: Burn Rate -->
       <div onclick="openBurnModal()" style="background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:16px;padding:18px 20px;cursor:pointer;transition:border-color .2s,background .2s;min-width:0;overflow:hidden;" onmouseenter="this.style.borderColor='rgba(251,191,36,.4)';this.style.background='rgba(251,191,36,.04)'" onmouseleave="this.style.borderColor='var(--border)';this.style.background='rgba(255,255,255,.03)'">
@@ -1673,12 +1673,12 @@ const SOURCE_TEMPLATE=(()=>{
 </script>
 <script>
 
-const MONTHS=['ต.ค. 68','พ.ย. 68','ธ.ค. 68','ม.ค. 69','ก.พ. 69','มี.ค. 69','เม.ย. 69','พ.ค. 69','มิ.ย. 69','ก.ค. 69','ส.ค. 69','ก.ย. 69'];
+const MONTHS=['ต.ค. 69','พ.ย. 69','ธ.ค. 69','ม.ค. 70','ก.พ. 70','มี.ค. 70','เม.ย. 70','พ.ค. 70','มิ.ย. 70','ก.ค. 70','ส.ค. 70','ก.ย. 70'];
 const CATS=[
   {id:'c1',label:'1. งบบังคับใช้ · หมวดงานสอบสวน',short:'หมวดงานสอบสวน',icon:'🔍',ic:'b',
    items:['ค่าคุ้มครองพยาน','ค่าตอบแทนพยาน','ค่าตอบแทนนักจิต','ค่าชันสูตรผลิกศพ','ค่าส่งหมายเรียก']},
   {id:'c2',label:'2. งบบังคับใช้ · ค่าใช้จ่ายทั่วไป',short:'ค่าใช้จ่ายทั่วไป',icon:'📋',ic:'gr',
-   items:['โอที','ค่าเบี้ยเลี้ยง','ค่าน้ำมัน+รถเช่า','ค่าซ่อมแซมรถ','ค่าทำความสะอาด','ค่าวัสดุสำนักงาน','ค่าวัสดุจราจร','ค่าอาหารผู้ต้องหา','ค่าสาธารณูปโภค']},
+   items:['โอที','ค่าเบี้ยเลี้ยง','ค่าน้ำมัน+รถเช่า','ค่าซ่อมแซมรถ','ค่าทำความสะอาด','ค่าวัสดุสำนักงาน','ค่าวัสดุจราจร','ค่าอาหารผู้ต้องหา','ค่าสาธารณูปโภค','โอที พงส.','ค่าเบี้ยเลี้ยง พงส.','ค่าน้ำมัน พงส.']},
   {id:'c3',label:'3. งบอื่นๆ',short:'งบอื่นๆ',icon:'📁',ic:'p',
    items:['ชมส.','ตำรวจบ้าน','เบี้ยประชุม ก.ตร.']},
   {id:'c4',label:'4. งบอื่นๆ (เพิ่มเติม)',short:'งบอื่นๆ เพิ่มเติม',icon:'📋',ic:'y',
@@ -1739,7 +1739,7 @@ function mkStatus(budget,used){
   return'ปกติ';
 }
 
-const LIVE_XLSX_URL='https://docs.google.com/spreadsheets/d/e/2PACX-1vT8uYcom0uew5F-2xyKMzqSWKqAqGMIC8ilGp1w6T0WEuDzi5_J6cK8Wgg8o6erm8y5YmJB2zOILzq1/pub?output=xlsx';
+const LIVE_XLSX_URL='https://docs.google.com/spreadsheets/d/e/2PACX-1vRKV1898pINcCDm5oX16V2b30R3hLYwFUNoD4q1V2To06e_H4pPzPldVGcbwXiBA9kucwsLH7W4K-Lz/pub?output=xlsx';
 let _liveTimer=null;
 let _liveEnabled=true;
 
@@ -1757,6 +1757,8 @@ async function loadLiveWorkbook(){
   }catch(err){
     console.error('[loadLiveWorkbook] Error:',err);
     if(!ITEM_MAP||Object.keys(ITEM_MAP).length===0){
+      const emptyTitle=document.querySelector('#es .et');
+      if(emptyTitle)emptyTitle.textContent='ไม่สามารถโหลดข้อมูลจาก Google Sheets ได้';
       alert('ไม่สามารถโหลดข้อมูลจาก Google Sheets ได้ กรุณาตรวจสอบการเผยแพร่ชีต แล้วรีเฟรชหน้าเว็บอีกครั้ง');
     }
   }finally{
@@ -2198,8 +2200,8 @@ function render(map,fname){
   const avgBurn=activeMonths.length>0?parseFloat((activeMonths.reduce((a,b)=>a+b,0)/activeMonths.length).toFixed(2)):0;
   // ── B: Current Fiscal Month ──
   // ปีงบประมาณไทย: 1 ต.ค. - 30 ก.ย. ของปีถัดไป
-  // ปีงบ 2569 = 1 ต.ค. 2025 (ค.ศ.) – 30 ก.ย. 2026 (ค.ศ.)
-  const fiscalStart=new Date(2025,9,1); // ต.ค. 2025 (ค.ศ.)
+  // ปีงบ 2570 = 1 ต.ค. 2026 (ค.ศ.) – 30 ก.ย. 2027 (ค.ศ.)
+  const fiscalStart=new Date(2026,9,1); // ต.ค. 2026 (ค.ศ.)
   const today=new Date();
   const diffMs=today-fiscalStart;
   const currentFiscalMonth=Math.min(12,Math.max(1,Math.ceil(diffMs/(1000*60*60*24*30.44))));
@@ -2253,7 +2255,7 @@ function render(map,fname){
         <div style="height:5px;background:rgba(255,255,255,.07);border-radius:3px;overflow:hidden;margin-bottom:6px;">
           <div style="height:100%;width:${(currentFiscalMonth/12*100).toFixed(0)}%;background:linear-gradient(90deg,var(--accent),var(--cyan));border-radius:3px;"></div>
         </div>
-        <div style="font-size:12px;color:var(--text2);">เหลืออีก <strong style="color:#f0f4ff;">${monthsRemaining}</strong> เดือน · ปีงบ 2569 สิ้นสุด ก.ย. 69</div>
+        <div style="font-size:12px;color:var(--text2);">เหลืออีก <strong style="color:#f0f4ff;">${monthsRemaining}</strong> เดือน · ปีงบ 2570 สิ้นสุด ก.ย. 70</div>
       </div>
       <!-- C: Burn Rate -->
       <div onclick="openBurnModal()" style="background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:16px;padding:18px 20px;cursor:pointer;transition:border-color .2s,background .2s;min-width:0;overflow:hidden;" onmouseenter="this.style.borderColor='rgba(251,191,36,.4)';this.style.background='rgba(251,191,36,.04)'" onmouseleave="this.style.borderColor='var(--border)';this.style.background='rgba(255,255,255,.03)'">
@@ -2513,7 +2515,7 @@ function openModal(name){
 
   document.getElementById('modalIco').textContent=ITEM_ICONS[name]||'📊';
   document.getElementById('modalTitle').textContent=name;
-  document.getElementById('modalSub').textContent='รายละเอียดการเบิกจ่ายรายเดือน · ปีงบประมาณ 2569';
+  document.getElementById('modalSub').textContent='รายละเอียดการเบิกจ่ายรายเดือน · ปีงบประมาณ 2570';
 
   // สร้าง pills โยกงบ (ถ้ามี)
   let transferPills='';
@@ -2982,14 +2984,14 @@ function renderOverview() {
 
   el.innerHTML = `<div style="background:rgba(255,255,255,.025);border:1px solid var(--border);border-radius:20px;overflow:hidden;margin-bottom:24px;">
     <div style="padding:22px 26px 18px;border-bottom:1px solid var(--border);">
-      <div style="font-size:16px;font-weight:700;color:#fff;">📋 ภาพรวมงบประมาณ สภ.บางบาล ปี 2569</div>
-      <div style="font-size:12px;color:var(--text2);margin-top:4px;">งบปี 2569 = งบเดิม + งบเสริม · คลิกชื่อรายการเพื่อดูรายเดือน</div>
+      <div style="font-size:16px;font-weight:700;color:#fff;">📋 ภาพรวมงบประมาณ สภ.บางบาล ปี 2570</div>
+      <div style="font-size:12px;color:var(--text2);margin-top:4px;">งบปี 2570 = งบเดิม + งบเสริม · คลิกชื่อรายการเพื่อดูรายเดือน</div>
     </div>
     <div style="overflow-x:auto;">
     <table style="width:100%;border-collapse:collapse;font-size:13px;">
       <thead><tr>
         <th style="text-align:left;padding:11px 16px;background:rgba(255,255,255,.04);color:var(--text2);font-size:12px;letter-spacing:.6px;text-transform:uppercase;border-bottom:1px solid var(--border);min-width:180px;">รายการ</th>
-        <th style="text-align:right;padding:11px 16px;background:rgba(255,255,255,.04);color:var(--cyan);font-size:12px;letter-spacing:.6px;text-transform:uppercase;border-bottom:1px solid var(--border);white-space:nowrap;">งบปี 2569<br><span style="font-weight:400;opacity:.7;font-size:10px;">(รวมเสริม)</span></th>
+        <th style="text-align:right;padding:11px 16px;background:rgba(255,255,255,.04);color:var(--cyan);font-size:12px;letter-spacing:.6px;text-transform:uppercase;border-bottom:1px solid var(--border);white-space:nowrap;">งบปี 2570<br><span style="font-weight:400;opacity:.7;font-size:10px;">(รวมเสริม)</span></th>
         <th style="text-align:right;padding:11px 16px;background:rgba(255,255,255,.04);color:var(--text2);font-size:12px;letter-spacing:.6px;text-transform:uppercase;border-bottom:1px solid var(--border);">งบเดิม</th>
         <th style="text-align:right;padding:11px 16px;background:rgba(255,255,255,.04);color:var(--gold2);font-size:12px;letter-spacing:.6px;text-transform:uppercase;border-bottom:1px solid var(--border);">งบเสริม</th>
         <th style="text-align:right;padding:11px 16px;background:rgba(255,255,255,.04);color:#34d399;font-size:12px;letter-spacing:.6px;text-transform:uppercase;border-bottom:1px solid var(--border);">ใช้ไปแล้ว</th>
@@ -3107,7 +3109,7 @@ function _renderTransferFromData(el, entries, sumRows) {
     <div style="padding:20px 24px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
       <div>
         <div style="font-size:14px;font-weight:700;color:#fff;">📦 บันทึกการโยกงบประมาณ</div>
-        <div style="font-size:12px;color:var(--text2);margin-top:3px;">รายการโยกงบทั้งหมดในปีงบประมาณ 2569</div>
+        <div style="font-size:12px;color:var(--text2);margin-top:3px;">รายการโยกงบทั้งหมดในปีงบประมาณ 2570</div>
       </div>
       <div style="background:rgba(37,99,235,.15);border:1px solid rgba(37,99,235,.3);border-radius:10px;padding:8px 16px;font-size:13px;font-weight:700;color:var(--cyan);">${entries.length} รายการ</div>
     </div>
@@ -3596,7 +3598,7 @@ function openBurnModal(){
   const avgBurn=activeVals.length>0?parseFloat((activeVals.reduce((a,b)=>a+b,0)/activeVals.length).toFixed(2)):0;
   const totalB=allItems.reduce((s,n)=>s+(ITEM_MAP[n]?.budget||0),0);
   const totalU=allItems.reduce((s,n)=>s+(ITEM_MAP[n]?.used||0),0)+getDeficitCoverageUsage(ITEM_MAP);
-  const fiscalStart=new Date(2025,9,1); // ต.ค. 2025 (ค.ศ.) = ปีงบ 2569
+  const fiscalStart=new Date(2026,9,1); // ต.ค. 2026 (ค.ศ.) = ปีงบ 2570
   const today=new Date();
   const currentFiscalMonth=Math.min(12,Math.max(1,Math.ceil((today-fiscalStart)/(1000*60*60*24*30.44))));
   const monthsRemaining=12-currentFiscalMonth;
@@ -4168,7 +4170,7 @@ function openResultModal() {
   items.forEach(it => it.monthly && it.monthly.forEach((v,i) => mTotals[i] += v));
   const activeM = mTotals.filter(v => v > 0);
   const avgBurn = activeM.length > 0 ? parseFloat((activeM.reduce((a,b)=>a+b,0)/activeM.length).toFixed(2)) : 0;
-  const fiscalStart = new Date(2025,9,1);
+  const fiscalStart = new Date(2026,9,1);
   const curMonIdx = Math.min(11, Math.max(0, Math.ceil((new Date()-fiscalStart)/(1000*60*60*24*30.44))-1));
   const monthsLeft = 12 - (curMonIdx+1);
   const projTotal = avgBurn > 0 ? parseFloat((totalU + avgBurn*monthsLeft).toFixed(2)) : null;
@@ -4293,7 +4295,7 @@ function openPrintView() {
   allItems.forEach(function(n){if(ITEM_MAP[n])ITEM_MAP[n].monthly.forEach(function(v,i){mTotals[i]+=v;});});
   var activeM = mTotals.filter(function(v){return v>0;});
   var avgBurn = activeM.length>0?parseFloat((activeM.reduce(function(a,b){return a+b;},0)/activeM.length).toFixed(2)):0;
-  var fiscalStart = new Date(2025,9,1);
+  var fiscalStart = new Date(2026,9,1);
   var curMonIdx = Math.min(11,Math.max(0,Math.ceil((new Date()-fiscalStart)/(1000*60*60*24*30.44))-1));
   var monthsLeft = 12-(curMonIdx+1);
   var projTotal = avgBurn>0?parseFloat((totalU+avgBurn*monthsLeft).toFixed(2)):null;
@@ -4398,7 +4400,7 @@ function openPrintView() {
 
   var ttl=document.createElement('span');
   ttl.style.cssText='color:#fff;font-family:Sarabun,sans-serif;font-size:14px;font-weight:700;flex:1;min-width:240px;';
-  ttl.textContent='📄 รายงานงบประมาณ สภ.บางบาล · ปีงบประมาณ 2569';
+  ttl.textContent='📄 รายงานงบประมาณ สภ.บางบาล · ปีงบประมาณ 2570';
 
   var btnP=document.createElement('button');
   btnP.textContent='🖨️ พิมพ์';
@@ -4518,7 +4520,7 @@ function openPrintView() {
     '<div class="ph">',
       '<div>',
         '<div class="ph-title">รายงานสถานะงบประมาณ · สถานีตำรวจภูธรบางบาล</div>',
-        '<div class="ph-sub">ปีงบประมาณ พ.ศ. 2569 &nbsp;·&nbsp; ข้อมูล ณ วันที่ '+dateStr+'</div>',
+        '<div class="ph-sub">ปีงบประมาณ พ.ศ. 2570 &nbsp;·&nbsp; ข้อมูล ณ วันที่ '+dateStr+'</div>',
       '</div>',
       '<div class="ph-r">',
         '<div class="ph-status '+(isOv?'warn':'ok')+'">'+(isOv?'⚠ มีรายการเกินงบ':'✅ ภาพรวมปกติ')+'</div>',
@@ -4602,7 +4604,7 @@ function openPrintView() {
       '</tr></tfoot>',
     '</table>',
 
-    '<div class="ft">จัดทำโดย ระบบแดชบอร์ดงบประมาณ สภ.บางบาล &nbsp;·&nbsp; ปีงบประมาณ 2569 &nbsp;·&nbsp; พิมพ์เมื่อ '+dateStr+'</div>',
+    '<div class="ft">จัดทำโดย ระบบแดชบอร์ดงบประมาณ สภ.บางบาล &nbsp;·&nbsp; ปีงบประมาณ 2570 &nbsp;·&nbsp; พิมพ์เมื่อ '+dateStr+'</div>',
     '</div>',
   ].join('');
 
@@ -4662,7 +4664,7 @@ function openPrintView() {
       var link=document.createElement('a');
       var stamp=String(now.getFullYear())+String(now.getMonth()+1).padStart(2,'0')+String(now.getDate()).padStart(2,'0');
       link.href=url;
-      link.download='รายงานงบประมาณ_สภบางบาล_2569_A4_'+stamp+'.png';
+      link.download='รายงานงบประมาณ_สภบางบาล_2570_A4_'+stamp+'.png';
       document.body.appendChild(link);
       link.click();
       link.remove();
@@ -4871,7 +4873,7 @@ function simBurnRate(it){
   return active.length>0?parseFloat((active.reduce(function(a,b){return a+b;},0)/active.length).toFixed(2)):0;
 }
 function simMonthsLeft(){
-  var fs=new Date(2025,9,1);
+  var fs=new Date(2026,9,1);
   var idx=Math.min(11,Math.max(0,Math.ceil((new Date()-fs)/(1000*60*60*24*30.44))-1));
   return 12-(idx+1);
 }
@@ -5388,7 +5390,9 @@ function getExecutiveSummaryData(){
   const utilities=ITEM_MAP['ค่าสาธารณูปโภค']||null;
   const overtime=ITEM_MAP['โอที']||null;
   const fuel=ITEM_MAP['ค่าน้ำมัน+รถเช่า']||null;
-  return {totalBudget,actualUsed,deficitCoverage,totalUsed,remaining,percent,overItems,topItem,utilities,overtime,fuel};
+  const investigatorItems=['โอที พงส.','ค่าเบี้ยเลี้ยง พงส.','ค่าน้ำมัน พงส.']
+    .map(name=>ITEM_MAP[name]).filter(Boolean);
+  return {totalBudget,actualUsed,deficitCoverage,totalUsed,remaining,percent,overItems,topItem,utilities,overtime,fuel,investigatorItems};
 }
 
 function getExecutiveThaiDate(includeTime=true){
@@ -5445,9 +5449,13 @@ function openExecutiveSummary(){
     '⛽ ค่าน้ำมันและค่าเช่ารถ',
     getExecutiveLatestText(data.fuel)
   ];
+  if(data.investigatorItems.length){
+    detailLines.push('', '📌 รายการของพนักงานสอบสวน (พงส.)',
+      ...data.investigatorItems.map(item=>`${item.name}: ${getExecutiveLatestText(item)}`));
+  }
 
   _executiveSummaryPlainText=[
-    '📊 สรุปสถานะงบประมาณ สภ.บางบาล ปีงบประมาณ 2569',
+    '📊 สรุปสถานะงบประมาณ สภ.บางบาล ปีงบประมาณ 2570',
     `ข้อมูล ณ วันที่ ${dateText}`,
     `ได้รับงบประมาณทั้งหมด ${fmt(data.totalBudget)} บาท ใช้ไปแล้ว ${fmt(data.totalUsed)} บาท คิดเป็น ${data.percent}% และ${remainingText}`,
     '',
@@ -5534,7 +5542,7 @@ async function downloadExecutiveSummaryImage(){
     const now=new Date();
     const stamp=`${now.getFullYear()}${String(now.getMonth()+1).padStart(2,'0')}${String(now.getDate()).padStart(2,'0')}`;
     const link=document.createElement('a');
-    link.download=`สรุปงบประมาณ_สภบางบาล_2569_${stamp}.png`;
+    link.download=`สรุปงบประมาณ_สภบางบาล_2570_${stamp}.png`;
     link.href=canvas.toDataURL('image/png');
     link.click();
     feedback.textContent='ดาวน์โหลดภาพสรุปเรียบร้อยแล้ว';
